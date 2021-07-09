@@ -1,8 +1,10 @@
 package org.handmade.miniproject.product.dto.product;
 
 import lombok.*;
+import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,15 +30,14 @@ public class ProductDTO {
     //예정 : 조회수
     private int pcount;
 
-    //예정 : 파일링크
-    private String uuid;
-
     //삭제 여부
     private boolean del;
 
     private LocalDateTime regDate;
 
     private LocalDateTime modDate;
+
+    private List<UploadImageDTO> imageList;
 
 
 

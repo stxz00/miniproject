@@ -26,6 +26,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         QProduct product = QProduct.product;
         QFavorite favorite = QFavorite.favorite;
         QReview review = QReview.review;
+        QQna qna = QQna.qna;
 
         JPQLQuery query = from(product);
         query.leftJoin(favorite).on(favorite.product.eq(product));

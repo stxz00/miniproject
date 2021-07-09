@@ -4,6 +4,8 @@ import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "category") //ManyToOne 에 lazy 로 셋팅하였으므로 category 를 toString 에서 제외.(안그럼 조회할 때 누군지 몰라 오류남)
+@ToString(exclude = "category")
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +34,6 @@ public class Product extends BaseEntity {
     //예정 : 조회수
     private int pcount;
 
-    //예정 : 파일링크
-    private String uuid;
-
     //삭제 여부
     private boolean del;
 
@@ -43,6 +42,13 @@ public class Product extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY) //ManyToOne 의 관계는 eager Loading 이 기본적으로 셋팅되어서 내가 조회한 것만 하도록 Lazy loading 으로 적용
     private Category category;
 
+    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UploadImage> uploadImages = new HashSet<>();
+
+    public void addImage(UploadImage image){
+        uploadImages.add(image);
+    }
 
 
 }

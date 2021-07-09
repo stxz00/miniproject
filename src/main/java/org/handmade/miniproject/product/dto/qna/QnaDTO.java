@@ -1,4 +1,4 @@
-package org.handmade.miniproject.product.dto.Qna;
+package org.handmade.miniproject.product.dto.qna;
 
 import lombok.*;
 
