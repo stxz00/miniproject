@@ -21,7 +21,6 @@ public class CategoryDTO {
 
     private String uuid;
 
-    private LocalDateTime regDate;
+    //카테고리를 날짜별로 조회하지 않아 regDate, modDate 삭제
 
-    private LocalDateTime modDate;
 }
