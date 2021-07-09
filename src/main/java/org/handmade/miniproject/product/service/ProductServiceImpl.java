@@ -5,7 +5,9 @@ import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
 import org.handmade.miniproject.common.dto.PageMaker;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
+import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
+import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,15 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
+
+    @Override
+    public Long register(ProductDTO productDTO) {
+        log.info(productDTO);
+
+        Product entity = dtoToEntity(productDTO);
+        Product result = productRepository.save(entity);
+        return result.getPno();
+    }
 
     @Override
     public ListResponseDTO<ListProductDTO> getList(ProductListRequestDTO productListRequestDTO) {
@@ -43,4 +54,7 @@ public class ProductServiceImpl implements ProductService{
                 .listRequestDTO(productListRequestDTO)
                 .build();
     }
+
+
+
 }
