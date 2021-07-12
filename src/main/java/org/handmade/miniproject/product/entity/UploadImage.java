@@ -13,10 +13,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Builder
+@ToString
 public class UploadImage extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String uuid;
 
     private String fileName;

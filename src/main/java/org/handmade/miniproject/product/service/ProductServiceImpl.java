@@ -7,7 +7,9 @@ import org.handmade.miniproject.common.dto.PageMaker;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
+import org.handmade.miniproject.product.entity.Category;
 import org.handmade.miniproject.product.entity.Product;
+import org.handmade.miniproject.product.repository.CategoryRepository;
 import org.handmade.miniproject.product.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,11 +28,16 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
 
+    private final CategoryRepository categoryRepository;
+
     @Override
     public Long register(ProductDTO productDTO) {
         log.info(productDTO);
 
-        Product entity = dtoToEntity(productDTO);
+        Product entity = dtoToEntity(productDTO,categoryRepository.findById(productDTO.getCno()).get());
+
+        log.info("========================================================");
+        log.info(entity);
         Product result = productRepository.save(entity);
         return result.getPno();
     }
