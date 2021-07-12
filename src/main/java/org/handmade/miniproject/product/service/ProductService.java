@@ -26,14 +26,10 @@ public interface ProductService {
         Product product = (Product) arr[0];
         long favoriteCount = (long)arr[1];
         long reviewCount = (long)arr[2];
-        //String uuid = (String)arr[3];
-        //String fileName = (String)arr[4];
         return ListProductDTO.builder()
                 .productDTO(entityToDTO(product))
                 .favoriteCount(favoriteCount)
                 .reviewCount(reviewCount)
-                //.uuid(uuid)
-                //.fileName(fileName)
                 .build();
     }
 
