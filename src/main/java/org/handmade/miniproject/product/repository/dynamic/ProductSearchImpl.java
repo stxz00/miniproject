@@ -50,6 +50,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         }
 
         tuple.where(product.pno.gt(0L)); //상품 인덱스를 실행하기 위한 쿼리
+        tuple.where(product.del.eq(false)); //상품 삭제 여부 false(0)인 것만 조회
         tuple.groupBy(product); //상품 pno 로 묶고
         tuple.orderBy(product.pno.desc()); // pno 역순으로 조회
 
