@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -70,6 +71,26 @@ public class CategoryRepoTests {
     }
 
 
+    @Test
+    public void testAllList() {
 
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("cno").descending());
+
+        Page<Object[]> result = categoryRepository.getAllList(pageable);
+
+        result.getContent().forEach(arr -> System.out.println(Arrays.toString(arr)));
+
+    }
+
+    @Test
+    public void testMainList() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("cno").descending());
+
+        Page<Object[]> result = categoryRepository.getMainList(pageable);
+
+        result.getContent().forEach(arr -> System.out.println(Arrays.toString(arr)));
+
+    }
 
 }

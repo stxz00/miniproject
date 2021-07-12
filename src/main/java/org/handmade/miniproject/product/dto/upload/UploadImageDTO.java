@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class UploadImageDTO {
 
-    private Long uuid;
+    private String uuid;
 
     private String fileName;
 

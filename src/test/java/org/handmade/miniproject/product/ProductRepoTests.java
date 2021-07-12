@@ -3,6 +3,7 @@ package org.handmade.miniproject.product;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.product.entity.Category;
 import org.handmade.miniproject.product.entity.Product;
+import org.handmade.miniproject.product.entity.UploadImage;
 import org.handmade.miniproject.product.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -38,7 +41,7 @@ public class ProductRepoTests {
 
     @Test
     public void testIntStream(){
-        IntStream.rangeClosed(1,100).forEach(i ->{
+        IntStream.rangeClosed(1,1).forEach(i ->{
             long cno = (int)(Math.random()*60)+1;
             Category category = Category.builder().cno(cno).build();
 
@@ -50,6 +53,7 @@ public class ProductRepoTests {
                     .del(false)
                     .category(category) //카테고리 cno 1번을 참조
                     .build();
+
             productRepository.save(product);
 
         });

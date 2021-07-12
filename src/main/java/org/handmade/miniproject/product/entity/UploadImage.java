@@ -1,6 +1,7 @@
 package org.handmade.miniproject.product.entity;
 
 import lombok.*;
+import org.handmade.miniproject.common.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +13,11 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Builder
-public class UploadImage {
+@ToString
+public class UploadImage extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uuid;
+    private String uuid;
 
     private String fileName;
 

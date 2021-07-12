@@ -1,20 +1,26 @@
 package org.handmade.miniproject.product.service;
 
 import org.handmade.miniproject.common.dto.ListResponseDTO;
+import org.handmade.miniproject.product.dto.category.CategoryDTO;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
 import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
+import org.handmade.miniproject.product.entity.Category;
 import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.entity.UploadImage;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public interface ProductService {
 
     ListResponseDTO<ListProductDTO> getList(ProductListRequestDTO productListRequestDTO);
+
+    Long register(ProductDTO productDTO);
 
     default ListProductDTO arrToDTO(Object[] arr){
         Product product = (Product) arr[0];
@@ -55,15 +61,19 @@ public interface ProductService {
                 .del(entity.isDel())
                 .build();
     }
-    
-    default Product dtoToEntity(ProductDTO dto){
 
-        Set<UploadImage> imageSet = dto.getImageList().stream().map(uploadImageDTO -> UploadImage.builder()
+   default Product dtoToEntity(ProductDTO dto, Category category){
+
+        Set<UploadImage> imageSet = new HashSet<>();
+        for (UploadImageDTO uploadImageDTO : dto.getImageList()) {
+            UploadImage build = UploadImage.builder()
                     .uuid(uploadImageDTO.getUuid())
                     .fileName(uploadImageDTO.getFileName())
                     .main(uploadImageDTO.isMain())
-                    .build())
-                .collect(Collectors.toSet());
+                    .build();
+            imageSet.add(build);
+        }
+
 
         return Product.builder()
                 .pno(dto.getPno())
@@ -74,6 +84,7 @@ public interface ProductService {
                 .pcount(dto.getPcount())
                 .uploadImages(imageSet)
                 .del(dto.isDel())
+                .category(category)
                 .build();
     }
 }

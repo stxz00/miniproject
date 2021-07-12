@@ -21,7 +21,4 @@ public class CategoryDTO {
 
     private String uuid;
 
-    private LocalDateTime regDate;
-
-    private LocalDateTime modDate;
 }
