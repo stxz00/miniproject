@@ -19,35 +19,36 @@ public class MemberDTO {
     //패스워드
     private String userPwd;
 
-    //이름
-    private String name;
-
     //닉네임
     private String nickname;
 
+    //이름
+    private String mname;
+
     //우편번호
-    private int zipcode;
+    private int mzipcode;
 
     //주소
-    private String address1;
+    private String maddress1;
 
     //상세 주소
-    private String address2;
+    private String maddress2;
 
-    //전화번호 앞자리
-    private int tel1;
+    //전화번호 앞자리, 0으로 시작해서 String 처리
+    private String tel1;
 
     //전화번호 중간자리
-    private int tel2;
+    private String tel2;
 
     //전화번호 끝자리
-    private int tel3;
+    private String tel3;
 
     //사업자 번호
     private int brno;
 
-    //프로필 사진
-    private List<UploadImageDTO> imageList;
+// TODO: 2021-07-13 프로필 사진은 한 장? 여러 장? 확인 후 하기 선언 수정
+//    //프로필 사진
+//    private List<UploadImageDTO> imageList;
 
     //가입 일자
     private LocalDateTime regDate;
