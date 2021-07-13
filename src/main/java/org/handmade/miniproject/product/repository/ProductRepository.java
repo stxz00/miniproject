@@ -11,4 +11,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface ProductRepository extends JpaRepository<Product,Long>, ProductSearch {
 
     Page<Product> getByCategory(Category category, Pageable pageable);
+
 }

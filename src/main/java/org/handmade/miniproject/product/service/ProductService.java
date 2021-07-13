@@ -22,6 +22,12 @@ public interface ProductService {
 
     Long register(ProductDTO productDTO);
 
+    Long delete(Long pno);
+
+    ProductDTO read(Long pno);
+
+    String modify(ProductDTO productDTO);
+
     default ListProductDTO arrToDTO(Object[] arr){
         Product product = (Product) arr[0];
         long favoriteCount = (long)arr[1];
@@ -59,7 +65,6 @@ public interface ProductService {
     }
 
    default Product dtoToEntity(ProductDTO dto, Category category){
-
         Set<UploadImage> imageSet = new HashSet<>();
         for (UploadImageDTO uploadImageDTO : dto.getImageList()) {
             UploadImage build = UploadImage.builder()
