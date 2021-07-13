@@ -3,10 +3,7 @@ package org.handmade.miniproject.product.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
-import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
-import org.handmade.miniproject.product.dto.upload.UploadResultDTO;
-import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.repository.ProductRepository;
 import org.handmade.miniproject.product.service.ProductService;
 import org.handmade.miniproject.product.service.UploadImageService;
@@ -29,7 +26,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Controller
 @Log4j2

@@ -1,9 +1,7 @@
 package org.handmade.miniproject.product.dto.product;
 
 import lombok.*;
-import org.handmade.miniproject.product.dto.category.CategoryDTO;
 import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
-import org.handmade.miniproject.product.entity.Category;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,6 +39,7 @@ public class ProductDTO {
 
     private List<UploadImageDTO> imageList;
 
+    //카테고리 번호
     private Long cno;
 
 
