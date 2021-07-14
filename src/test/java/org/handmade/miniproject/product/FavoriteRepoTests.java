@@ -44,4 +44,10 @@ public class FavoriteRepoTests {
 
     }
 
+    @Test
+    public void testDelete(){
+        favoriteRepository.deleteById(103L);
+    }
+
+
 }

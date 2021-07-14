@@ -28,6 +28,7 @@ public interface ProductService {
 
     String modify(ProductDTO productDTO);
 
+    // 상품리스트 DTO 로 변환
     default ListProductDTO arrToDTO(Object[] arr){
         Product product = (Product) arr[0];
         long favoriteCount = (long)arr[1];
@@ -39,6 +40,7 @@ public interface ProductService {
                 .build();
     }
 
+    //상품 엔티티를 DTO 로 변환
     default ProductDTO entityToDTO(Product entity){
 
         List<UploadImageDTO> imageList = entity.getUploadImages()
@@ -64,6 +66,7 @@ public interface ProductService {
                 .build();
     }
 
+    //상품 dto 를 엔티티로 변환. 카테고리는 dto 의 getCno 및 findById 를 통해 가져오기
    default Product dtoToEntity(ProductDTO dto, Category category){
         Set<UploadImage> imageSet = new HashSet<>();
         for (UploadImageDTO uploadImageDTO : dto.getImageList()) {
