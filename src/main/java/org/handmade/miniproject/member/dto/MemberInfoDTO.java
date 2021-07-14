@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MemberDTO {
+public class MemberInfoDTO {
 
     //아이디(이메일)
     private String username;
@@ -35,13 +35,13 @@ public class MemberDTO {
     private String maddress2;
 
     //전화번호 앞자리, 0으로 시작해서 String 처리
-    private String tel1;
+    private String mtel1;
 
     //전화번호 중간자리
-    private String tel2;
+    private String mtel2;
 
     //전화번호 끝자리
-    private String tel3;
+    private String mtel3;
 
     //사업자 번호
     private int brno;
@@ -57,6 +57,6 @@ public class MemberDTO {
     private LocalDateTime modDate;
 
     //탈퇴 여부
-    private boolean del;
+    private boolean mdel;
 
 }

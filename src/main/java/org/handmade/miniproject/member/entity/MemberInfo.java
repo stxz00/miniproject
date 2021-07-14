@@ -12,13 +12,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="member")
+@Table(name="MemberInfo")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Member extends BaseEntity {
+public class MemberInfo extends BaseEntity {
     @Id
     //아이디(이메일)
     private String username;
@@ -42,25 +42,19 @@ public class Member extends BaseEntity {
     private String maddress2;
 
     //전화번호 앞자리
-    private String tel1;
+    private String mtel1;
 
     //전화번호 중간자리
-    private String tel2;
+    private String mtel2;
 
     //전화번호 끝자리
-    private String tel3;
+    private String mtel3;
 
     //사업자 번호
     private int brno;
 
-    //가입 일자
-    private LocalDateTime regDate;
-
-    //회원 정보 수정 일자
-    private LocalDateTime modDate;
-
     //탈퇴 여부
-    private boolean del;
+    private boolean mdel;
 
 // TODO: 2021-07-13  UploadImage 처리 어떻게 할건지 확인 후 하기 선언 수정
 //    @Builder.Default
@@ -68,8 +62,8 @@ public class Member extends BaseEntity {
 //
 //    public void addImage(UploadImage image) { uploadImages.add(image) }
 
-    public void changeDel(boolean del){
-        this.del = del;
+    public void changeDel(boolean mdel){
+        this.mdel = mdel;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.handmade.miniproject.product;
 
 import lombok.extern.log4j.Log4j2;
+import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.product.entity.Category;
 import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.entity.UploadImage;

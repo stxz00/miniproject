@@ -1,18 +1,22 @@
 package org.handmade.miniproject.member.service;
 
-import org.handmade.miniproject.member.dto.MemberDTO;
-import org.handmade.miniproject.member.entity.Member;
+import org.handmade.miniproject.member.dto.MemberInfoDTO;
+import org.handmade.miniproject.member.entity.MemberInfo;
 
-public interface MemberService {
+public interface MemberInfoService {
 
     // TODO: 2021-07-13  작가별 검색 넣을건지 확인해서 getMemberList추가
 
-    String register(MemberDTO memberDTO);
+    String register(MemberInfoDTO memberInfoDTO);
 
-    default MemberDTO entityToDTO(Member entity) {
+    MemberInfoDTO getMemberInfo();
+
+    MemberInfoDTO modifyInfo(MemberInfoDTO dto);
+
+    default MemberInfoDTO entityToDTO(MemberInfo entity) {
         //UploadImage 처리방식 상의 후 image추가
 
-        return MemberDTO.builder()
+        return MemberInfoDTO.builder()
                 .username(entity.getUsername())
                 .userPwd(entity.getUserPwd())
                 .nickname(entity.getNickname())
@@ -20,20 +24,20 @@ public interface MemberService {
                 .mzipcode(entity.getMzipcode())
                 .maddress1(entity.getMaddress1())
                 .maddress2(entity.getMaddress2())
-                .tel1(entity.getTel1())
-                .tel2(entity.getTel2())
-                .tel3(entity.getTel3())
+                .mtel1(entity.getMtel1())
+                .mtel2(entity.getMtel2())
+                .mtel3(entity.getMtel3())
                 .brno(entity.getBrno())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
-                .del(entity.isDel())
+                .mdel(entity.isMdel())
                 .build();
     }
 
-    default Member dtoToEntity(MemberDTO dto) {
+    default MemberInfo dtoToEntity(MemberInfoDTO dto) {
         //UploadImage 처리방식 상의 후 image추가
 
-        return Member.builder()
+        return MemberInfo.builder()
                 .username(dto.getUsername())
                 .userPwd(dto.getUserPwd())
                 .nickname(dto.getNickname())
@@ -41,14 +45,12 @@ public interface MemberService {
                 .mzipcode(dto.getMzipcode())
                 .maddress1(dto.getMaddress1())
                 .maddress2(dto.getMaddress2())
-                .tel1(dto.getTel1())
-                .tel2(dto.getTel2())
-                .tel3(dto.getTel3())
+                .mtel1(dto.getMtel1())
+                .mtel2(dto.getMtel2())
+                .mtel3(dto.getMtel3())
                 .brno(dto.getBrno())
-                .regDate(dto.getRegDate())
-                .modDate(dto.getModDate())
-                .del(dto.isDel())
                 .build();
     }
+
 
 }
