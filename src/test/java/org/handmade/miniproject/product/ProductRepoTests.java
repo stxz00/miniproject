@@ -41,7 +41,7 @@ public class ProductRepoTests {
 
     @Test
     public void testIntStream(){
-        IntStream.rangeClosed(1,1).forEach(i ->{
+        IntStream.rangeClosed(1,100).forEach(i ->{
             long cno = (int)(Math.random()*60)+1;
             Category category = Category.builder().cno(cno).build();
 

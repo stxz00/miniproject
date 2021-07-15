@@ -41,7 +41,8 @@ public class CategoryRepoTests {
         Optional<Category> result = categoryRepository.findById(2L);
         //result.isPresent() 결과값이 나왔을 경우 true 없으면 false
        if(result.isPresent()){
-           log.info(result.get().toString());
+           log.info("===========================");
+           log.info(result.get());
        }
     }
 

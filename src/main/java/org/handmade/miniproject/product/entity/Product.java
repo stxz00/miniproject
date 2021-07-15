@@ -50,5 +50,27 @@ public class Product extends BaseEntity {
         uploadImages.add(image);
     }
 
+    public void changePname(String pname){
+        this.pname = pname;
+    }
 
+    public void changePcontent(String pcontent){
+        this.pcontent = pcontent;
+    }
+
+    public void changePrice(int price){
+        this.price = price;
+    }
+
+    public void changeDel(boolean del){
+        this.del = del;
+    }
+
+    public void changeCategory(Category category){
+        this.category = category;
+    }
+
+    public void changeuploadImages(Set<UploadImage> uploadImages){
+        this.uploadImages = uploadImages;
+    }
 }

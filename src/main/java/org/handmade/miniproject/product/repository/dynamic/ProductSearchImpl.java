@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class ProductSearchImpl extends QuerydslRepositorySupport implements ProductSearch{
     //상품 검색 기능 구현
 
-
     public ProductSearchImpl() {
         super(Product.class);
     }
@@ -55,7 +54,108 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         tuple.orderBy(product.pno.desc()); // pno 역순으로 조회
 
         tuple.offset(pageable.getOffset());
-        tuple.offset(pageable.getPageSize());
+        tuple.limit(pageable.getPageSize());
+
+        List<Tuple> tupleList = tuple.fetch();
+
+        List<Object[]> arrList =
+                tupleList.stream().map(tuple1 -> tuple1.toArray()).collect(Collectors.toList());
+        long totalCount = tuple.fetchCount();
+
+        return new PageImpl<>(arrList,pageable,totalCount);
+    }
+
+    @Override
+    public Page<Object[]> getFavoriteList(String keyword, Pageable pageable) {
+        QFavorite favorite = QFavorite.favorite;
+        QProduct product = QProduct.product;
+
+        JPQLQuery query = from(favorite);
+
+        query.leftJoin(product).on(favorite.favorite.eq(favorite));
+
+        JPQLQuery<Tuple> tuple = query.select(favorite, favorite.countDistinct());
+
+        BooleanBuilder condition = new BooleanBuilder();
+        condition.or(favorite.username.contains(keyword));
+        tuple.where(condition);
+
+
+        tuple.where(favorite.fno.gt(0L));
+
+        tuple.groupBy(favorite);
+        tuple.orderBy(favorite.fno.desc()); // fno 역순으로 조회
+
+        tuple.offset(pageable.getOffset());
+        tuple.limit(pageable.getPageSize());
+
+        List<Tuple> tupleList = tuple.fetch();
+
+        List<Object[]> arrList =
+                tupleList.stream().map(tuple1 -> tuple1.toArray()).collect(Collectors.toList());
+        long totalCount = tuple.fetchCount();
+
+        return new PageImpl<>(arrList,pageable,totalCount);
+
+    }
+
+    @Override
+    public Page<Object[]> getQnaList(String keyword, Pageable pageable) {
+
+        QQna qna = QQna.qna;
+        QProduct product = QProduct.product;
+
+        JPQLQuery query = from(qna);
+
+        query.leftJoin(product).on(qna.qna.eq(qna));
+
+        JPQLQuery<Tuple> tuple = query.select(qna, qna.countDistinct());
+
+        BooleanBuilder condition = new BooleanBuilder();
+        condition.or(qna.product.pno.eq(Long.parseLong(keyword)));
+        tuple.where(condition);
+
+
+        tuple.where(qna.qno.gt(0L));
+
+        tuple.groupBy(qna);
+        tuple.orderBy(qna.qno.desc()); // fno 역순으로 조회
+
+        tuple.offset(pageable.getOffset());
+        tuple.limit(pageable.getPageSize());
+
+        List<Tuple> tupleList = tuple.fetch();
+
+        List<Object[]> arrList =
+                tupleList.stream().map(tuple1 -> tuple1.toArray()).collect(Collectors.toList());
+        long totalCount = tuple.fetchCount();
+
+        return new PageImpl<>(arrList,pageable,totalCount);
+    }
+
+    @Override
+    public Page<Object[]> getReviewList(String keyword, Pageable pageable) {
+        QReview review = QReview.review;
+        QProduct product = QProduct.product;
+
+        JPQLQuery query = from(review);
+
+        query.leftJoin(product).on(review.review.eq(review));
+
+        JPQLQuery<Tuple> tuple = query.select(review, review.countDistinct());
+
+        BooleanBuilder condition = new BooleanBuilder();
+        condition.or(review.product.pno.eq(Long.parseLong(keyword)));
+        tuple.where(condition);
+
+
+        tuple.where(review.rno.gt(0L));
+
+        tuple.groupBy(review);
+        tuple.orderBy(review.rno.desc()); // fno 역순으로 조회
+
+        tuple.offset(pageable.getOffset());
+        tuple.limit(pageable.getPageSize());
 
         List<Tuple> tupleList = tuple.fetch();
 

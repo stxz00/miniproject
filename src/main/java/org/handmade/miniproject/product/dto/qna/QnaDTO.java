@@ -20,11 +20,13 @@ public class QnaDTO {
 
     private boolean answer;
 
-    private String uuid;
+    private Long ano;
 
     private boolean del;
 
     private LocalDateTime regDate;
 
     private LocalDateTime modDate;
+
+    private Long pno;
 }

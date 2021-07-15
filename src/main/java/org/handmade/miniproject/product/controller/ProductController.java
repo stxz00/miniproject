@@ -22,16 +22,38 @@ public class ProductController {
 
     //상품 등록과 함께 디렉터리에 업로드한 이미지 파일 연결 및 DB 저장
     @PostMapping("/register")
-    public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO, CategoryDTO categoryDTO){
+    public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO){
         log.info(productDTO);
-        log.info(categoryDTO);
         return ResponseEntity.ok(productService.register(productDTO));
     }
 
+    //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
     public ResponseEntity<ListResponseDTO<ListProductDTO>> list(ProductListRequestDTO requestDTO){
         log.info("------------------------------");
         return ResponseEntity.ok(productService.getList(requestDTO));
+    }
+
+    //상품 한 개 조회
+    @GetMapping("/{pno}")
+    public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
+        log.info(pno);
+        return ResponseEntity.ok(productService.read(pno));
+    }
+
+    //상품 한 개 삭제(관리자)
+    @DeleteMapping("/{pno}")
+    public ResponseEntity<Long> delete(@PathVariable Long pno){
+        log.info(pno);
+        return ResponseEntity.ok(productService.delete(pno));
+    }
+
+    //상품 수정 및 삭제 del
+    @PutMapping("/{pno}")
+    public ResponseEntity<Long> modify(@PathVariable Long pno, @RequestBody ProductDTO productDTO){
+        productDTO.setPno(pno);
+        productService.modify(productDTO);
+        return ResponseEntity.ok(productDTO.getPno());
     }
 
 }
