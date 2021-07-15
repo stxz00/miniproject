@@ -61,8 +61,7 @@ public class ProductServiceImpl implements ProductService{
     //상품 가져오기
     @Override
     public ProductDTO read(Long pno) {
-        Optional<Product> result = productRepository.findById(pno);
-        return entityToDTO(result.get());
+        return entityToDTO(productRepository.findById(pno).get());
     }
 
     //실제 상품 수정 저장

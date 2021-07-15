@@ -19,16 +19,26 @@ public class Qna extends BaseEntity {
     //구매자, 판매자
     private String username;
 
+    //내용
     private String qnacontent;
 
+    //판매자 답변인지 여부
     private boolean answer;
 
-    private String uuid;
+    //판매자 답변인 경우 질문번호 => qno
+    private Long ano;
 
     private boolean del;
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    public void changeQnacontent(String qnacontent){
+        this.qnacontent = qnacontent;
+    }
+
+
+
 
 }

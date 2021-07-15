@@ -36,14 +36,14 @@ public class ProductController {
 
     //상품 한 개 조회
     @GetMapping("/{pno}")
-    public ResponseEntity<ProductDTO> read(Long pno){
+    public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
         log.info(pno);
         return ResponseEntity.ok(productService.read(pno));
     }
 
     //상품 한 개 삭제(관리자)
     @DeleteMapping("/{pno}")
-    public ResponseEntity<Long> delete(Long pno){
+    public ResponseEntity<Long> delete(@PathVariable Long pno){
         log.info(pno);
         return ResponseEntity.ok(productService.delete(pno));
     }
