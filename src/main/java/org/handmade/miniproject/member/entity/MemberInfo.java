@@ -2,14 +2,10 @@ package org.handmade.miniproject.member.entity;
 
 import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
-import org.handmade.miniproject.product.entity.UploadImage;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="MemberInfo")
@@ -33,7 +29,7 @@ public class MemberInfo extends BaseEntity {
     private String nickname;
 
     //우편번호
-    private int mzipcode;
+    private String mzipcode;
 
     //주소
     private String maddress1;
@@ -51,7 +47,7 @@ public class MemberInfo extends BaseEntity {
     private String mtel3;
 
     //사업자 번호
-    private int brno;
+    private String brno;
 
     //탈퇴 여부
     private boolean mdel;
@@ -62,6 +58,17 @@ public class MemberInfo extends BaseEntity {
 //
 //    public void addImage(UploadImage image) { uploadImages.add(image) }
 
+    //회원 정보 수정을 위한 메소드
+    public void changeUserPwd(String userPwd) { this.userPwd = userPwd;  }
+    public void changeMname(String mname) { this.mname = mname; }
+    public void changeNickname(String nickname) {   this.nickname = nickname;   }
+    public void changeMzipcode(String mzipcode) {   this.mzipcode = mzipcode;   }
+    public void changeMaddress1(String maddress1) { this.maddress1 = maddress1; }
+    public void changeMaddress2(String maddress2) { this.maddress2 = maddress2; }
+    public void changeMtel1(String mtel1) { this.mtel1 = mtel1; }
+    public void changeMtel2(String mtel2) { this.mtel2 = mtel2; }
+    public void changeMtel3(String mtel3) { this.mtel3 = mtel3; }
+    public void changeBrno(String brno) {   this.brno = brno;   }
     public void changeDel(boolean mdel){
         this.mdel = mdel;
     }

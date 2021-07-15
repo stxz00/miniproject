@@ -15,7 +15,9 @@ import java.util.Optional;
 public class MemberInfoServiceImpl implements MemberInfoService {
 
     private final MemberInfoRepository memberInfoRepository;
+    private final MemberInfoService memberInfoService;
 
+    //회원 등록
     @Override
     public String register(MemberInfoDTO memberInfoDTO) {
         log.info(memberInfoDTO);
@@ -31,38 +33,66 @@ public class MemberInfoServiceImpl implements MemberInfoService {
         return result.getUsername();
     }
 
-    //멤버 정보 수정
+    //회원 정보 출력
     @Override
-    public MemberInfoDTO modifyInfo(MemberInfoDTO dto) {
-//        log.info(dto);
-//
-//        MemberInfo entity = dtoToEntity(dto);
-//        String username = entity.getUsername();
-//
-//        log.info("==============================");
-//        log.info(entity);
-//
-//        Optional<MemberInfo> searchRes = memberInfoRepository.findById(username);
-//
-//        searchRes.isPresent(
-//
-//                );
-//
-//
-//
-//
-//
-//        MemberInfo result = memberInfoRepository.save(entity);
+    public MemberInfoDTO getMemberInfo(String username) {
+
+        Optional<MemberInfo> result = memberInfoRepository.findById(username);
+
+        if(result.isPresent()){
+            return memberInfoService.entityToDTO(result);
+        }
 
         return null;
     }
 
-    //멤버 정보 출력
+    //회원 정보 수정
     @Override
-    public MemberInfoDTO getMemberInfo() {
+    public String modifyInfo(MemberInfoDTO dto) {
+
+        //dto를 entity로 변환
+        MemberInfo entity = memberInfoService.dtoToEntity(dto);
+        //DB에서 해당 아이디와 일치하는 레코드 검색
+        Optional<MemberInfo> resEntity = memberInfoRepository.findById(entity.getUsername());
+
+        //검색한 결과가 존재할 경우 받아온 정보를 덮어씌워 저장
+        resEntity.ifPresent( memberInfo -> {
+            memberInfo.changeUserPwd(entity.getUserPwd());
+            memberInfo.changeNickname(entity.getNickname());
+            memberInfo.changeMname(entity.getMname());
+            memberInfo.changeMzipcode(entity.getMzipcode());
+            memberInfo.changeMaddress1(entity.getMaddress1());
+            memberInfo.changeMaddress2(entity.getMaddress2());
+            memberInfo.changeMtel1(entity.getMtel1());
+            memberInfo.changeMtel2(entity.getMtel2());
+            memberInfo.changeMtel3(entity.getMtel3());
+            memberInfo.changeBrno(entity.getBrno());
+
+            MemberInfo result = memberInfoRepository.save(memberInfo);
+
+            return result.getUsername();
+
+        });
+
         return null;
     }
 
+    //회원 정보 삭제
+    @Override
+    public String deleteMemberInfo(String username) {
 
+        Optional<MemberInfo> member = memberInfoRepository.findById(username);
+
+        member.ifPresent(memberInfo -> {
+
+            memberInfo.changeDel(true);
+            MemberInfo result = memberInfoRepository.save(memberInfo);
+
+            return result.getUsername();
+
+        });
+
+        return null;
+    }
 
 }

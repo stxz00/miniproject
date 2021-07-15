@@ -1,10 +1,8 @@
 package org.handmade.miniproject.member.dto;
 
 import lombok.*;
-import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -26,7 +24,7 @@ public class MemberInfoDTO {
     private String mname;
 
     //우편번호
-    private int mzipcode;
+    private String mzipcode;
 
     //주소
     private String maddress1;
@@ -44,7 +42,7 @@ public class MemberInfoDTO {
     private String mtel3;
 
     //사업자 번호
-    private int brno;
+    private String brno;
 
 // TODO: 2021-07-13 프로필 사진은 한 장? 여러 장? 확인 후 하기 선언 수정
 //    //프로필 사진

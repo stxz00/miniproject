@@ -5,13 +5,13 @@ import org.handmade.miniproject.member.entity.MemberInfo;
 
 public interface MemberInfoService {
 
-    // TODO: 2021-07-13  작가별 검색 넣을건지 확인해서 getMemberList추가
-
     String register(MemberInfoDTO memberInfoDTO);
 
-    MemberInfoDTO getMemberInfo();
+    MemberInfoDTO getMemberInfo(String username);
 
-    MemberInfoDTO modifyInfo(MemberInfoDTO dto);
+    String modifyInfo(MemberInfoDTO dto);
+
+    String deleteMemberInfo(String username);
 
     default MemberInfoDTO entityToDTO(MemberInfo entity) {
         //UploadImage 처리방식 상의 후 image추가

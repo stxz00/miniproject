@@ -16,29 +16,24 @@ public class MemberInfoController {
     private MemberInfoService memberInfoService;
 
     //회원가입
-    @PostMapping("/join")
+    @PostMapping("")
     public ResponseEntity<String> register(@RequestBody MemberInfoDTO dto) {
 
         log.info(dto);
 
-        String userName = memberInfoService.register(dto);
+        String username = memberInfoService.register(dto);
 
-        return ResponseEntity.ok(userName);
+        return ResponseEntity.ok(username);
 
     }
 
     @GetMapping("/modify")
-    public ResponseEntity<MemberInfoDTO> getMemberInfo(@RequestBody MemberInfoDTO dto) {
+    public ResponseEntity<String> getMemberInfo(@RequestBody MemberInfoDTO dto) {
         log.info(dto);
 
-        MemberInfoDTO memberInfoDTO = memberInfoService.modifyInfo(dto);
+        String username = memberInfoService.modifyInfo(dto);
 
-        return ResponseEntity.ok(memberInfoDTO);
-    }
-
-    @GetMapping("/modifyResult")
-    public ResponseEntity<MemberInfoDTO> getModifyInfo() {
-        return ResponseEntity.ok(memberInfoService.getMemberInfo());
+        return ResponseEntity.ok(username);
     }
 
 

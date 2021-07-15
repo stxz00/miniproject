@@ -29,13 +29,13 @@ public class MemberInfoRepoTests {
                     .userPwd("asdf1234"+i)
                     .nickname("닉네임"+i)
                     .mname("이름"+i)
-                    .mzipcode(13485)
+                    .mzipcode("13485")
                     .maddress1("주소"+i)
                     .maddress2("상세주소"+i)
                     .mtel1("010")
                     .mtel2("1234")
                     .mtel3("5678")
-                    .brno(i)
+                    .brno("1234567890")
                     .mdel(false)
                     .build();
 
@@ -43,13 +43,6 @@ public class MemberInfoRepoTests {
 
         });
 
-    }
-
-    //임의로 지정된 회원의 회원 정보 수정
-    @Test
-    public void testModify() {
-        // TODO: 2021-07-14 사용자가 입력한 수정정보를 반영하는 기능 작성
-        // DB의 내용을 고스란히 화면으로 뿌려주고 전체를 다시 저장
     }
 
     //임의로 지정된 회원을 탈퇴처리
@@ -69,8 +62,8 @@ public class MemberInfoRepoTests {
     public void testRead() {
 
         Optional<MemberInfo> result = memberInfoRepository.findById("user1@aaa.com");
-        log.info("======================================");
-        log.info(result.get());
+//        log.info("======================================");
+//        log.info(result.get());
 
         MemberInfoDTO dto = memberInfoService.entityToDTO(result.get());
         log.info("======================================");
