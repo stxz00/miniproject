@@ -11,16 +11,13 @@ import javax.persistence.*;
 @ToString(exclude = "product")
 @Builder
 @Getter
-public class Favorite extends BaseEntity {
+public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fno;
 
     //구매자 ManyToOne
     private String username;
-    
-    //찜 해제 여부
-    private boolean del;
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)

@@ -13,13 +13,7 @@ public class FavoriteDTO {
 
     private Long fno;
 
-    //구매자 ManyToOne
     private String username;
 
-    //찜 해제 여부
-    private boolean del;
-
-    private LocalDateTime regDate;
-
-    private LocalDateTime modDate;
+    private Long pno;
 }
