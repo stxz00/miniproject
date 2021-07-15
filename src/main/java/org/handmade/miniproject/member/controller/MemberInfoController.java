@@ -16,7 +16,7 @@ public class MemberInfoController {
     private MemberInfoService memberInfoService;
 
     //회원가입
-    @PostMapping("")
+    @PostMapping("/signIn")
     public ResponseEntity<String> register(@RequestBody MemberInfoDTO dto) {
 
         log.info(dto);
@@ -27,13 +27,32 @@ public class MemberInfoController {
 
     }
 
-    @GetMapping("/modify")
-    public ResponseEntity<String> getMemberInfo(@RequestBody MemberInfoDTO dto) {
+    //회원 정보 수정
+    @PostMapping("/modify")
+    public ResponseEntity<String> modifyMemberInfo(@RequestBody MemberInfoDTO dto) {
         log.info(dto);
 
         String username = memberInfoService.modifyInfo(dto);
 
         return ResponseEntity.ok(username);
+    }
+
+    //회원 정보 조회
+    @GetMapping("/{username}")
+    public ResponseEntity<MemberInfoDTO> getMemberInfo(@RequestBody String username){
+
+        MemberInfoDTO memberInfoDTO = memberInfoService.getMemberInfo(username);
+
+        return ResponseEntity.ok(memberInfoDTO);
+    }
+
+    //회원 탈퇴(del 변경)
+    @PutMapping("/{username}")
+    public ResponseEntity<String> delMemberInfo(@RequestBody String username) {
+
+        String deleteRes = memberInfoService.deleteMemberInfo(username);
+
+        return ResponseEntity.ok(deleteRes);
     }
 
 
