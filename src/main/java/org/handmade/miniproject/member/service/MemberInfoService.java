@@ -13,6 +13,7 @@ public interface MemberInfoService {
 
     String deleteMemberInfo(String username);
 
+    //회원의 entity를 DTO로 변환
     default MemberInfoDTO entityToDTO(MemberInfo entity) {
         //UploadImage 처리방식 상의 후 image추가
 
@@ -34,6 +35,7 @@ public interface MemberInfoService {
                 .build();
     }
 
+    //회원의 DTO를 entity로 변환
     default MemberInfo dtoToEntity(MemberInfoDTO dto) {
         //UploadImage 처리방식 상의 후 image추가
 
