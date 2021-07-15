@@ -132,4 +132,37 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 
         return new PageImpl<>(arrList,pageable,totalCount);
     }
+
+    @Override
+    public Page<Object[]> getReviewList(String keyword, Pageable pageable) {
+        QReview review = QReview.review;
+        QProduct product = QProduct.product;
+
+        JPQLQuery query = from(review);
+
+        query.leftJoin(product).on(review.review.eq(review));
+
+        JPQLQuery<Tuple> tuple = query.select(review, review.countDistinct());
+
+        BooleanBuilder condition = new BooleanBuilder();
+        condition.or(review.product.pno.eq(Long.parseLong(keyword)));
+        tuple.where(condition);
+
+
+        tuple.where(review.rno.gt(0L));
+
+        tuple.groupBy(review);
+        tuple.orderBy(review.rno.desc()); // fno 역순으로 조회
+
+        tuple.offset(pageable.getOffset());
+        tuple.limit(pageable.getPageSize());
+
+        List<Tuple> tupleList = tuple.fetch();
+
+        List<Object[]> arrList =
+                tupleList.stream().map(tuple1 -> tuple1.toArray()).collect(Collectors.toList());
+        long totalCount = tuple.fetchCount();
+
+        return new PageImpl<>(arrList,pageable,totalCount);
+    }
 }
