@@ -14,6 +14,7 @@ import org.handmade.miniproject.product.service.QnaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -32,13 +33,13 @@ public class QnaController {
 
     //질문 한 개 조회(수정할때 불러오기용으로 가능할듯)
     @GetMapping("/{qno}")
-    public ResponseEntity<QnaDTO> read(Long qno){
+    public ResponseEntity<QnaDTO> read(@PathVariable Long qno){
         log.info(qno);
         return ResponseEntity.ok(qnaService.read(qno));
     }
 
     @DeleteMapping("/{qno}")
-    public ResponseEntity<Long> delete(Long qno){
+    public ResponseEntity<Long> delete(@PathVariable Long qno){
         log.info(qno);
         return ResponseEntity.ok(qnaService.delete(qno));
     }
