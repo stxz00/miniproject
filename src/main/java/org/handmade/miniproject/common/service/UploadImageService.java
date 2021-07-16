@@ -1,8 +1,7 @@
-package org.handmade.miniproject.product.service;
+package org.handmade.miniproject.common.service;
 
-import lombok.Builder;
-import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
-import org.handmade.miniproject.product.entity.UploadImage;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
+import org.handmade.miniproject.common.entity.UploadImage;
 
 public interface UploadImageService {
 
@@ -13,6 +12,5 @@ public interface UploadImageService {
                 .main(uploadImageDTO.isMain())
                 .build();
     }
-
 
 }

@@ -6,13 +6,11 @@ import org.handmade.miniproject.product.dto.category.CategoryDTO;
 import org.handmade.miniproject.product.dto.category.ListCategoryDTO;
 import org.handmade.miniproject.product.service.CategoryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -30,5 +28,11 @@ public class CategoryController {
     public ResponseEntity<List<ListCategoryDTO>> getMainList(){
         return ResponseEntity.ok(categoryService.getMainList());
     }
+
+    @PostMapping("/")
+    public ResponseEntity<Long> register(@RequestBody CategoryDTO dto){
+        return ResponseEntity.ok(categoryService.register(dto));
+    }
+
 
 }

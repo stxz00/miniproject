@@ -1,4 +1,4 @@
-package org.handmade.miniproject.product.dto.upload;
+package org.handmade.miniproject.common.dto.upload;
 
 import lombok.*;
 

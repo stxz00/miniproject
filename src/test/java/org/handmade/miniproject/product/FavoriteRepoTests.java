@@ -23,7 +23,6 @@ public class FavoriteRepoTests {
         Favorite favorite = Favorite.builder()
                 .username("구매자")
                 .product(product)
-                .del(false)
                 .build();
         favoriteRepository.save(favorite);
     }
@@ -37,11 +36,16 @@ public class FavoriteRepoTests {
             Favorite favorite = Favorite.builder()
                     .username("구매자"+i)
                     .product(product)
-                    .del(false)
                     .build();
             favoriteRepository.save(favorite);
         });
 
     }
+
+    @Test
+    public void testDelete(){
+        favoriteRepository.deleteById(103L);
+    }
+
 
 }

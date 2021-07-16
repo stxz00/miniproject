@@ -12,4 +12,6 @@ public interface ProductSearch {
 
     //상품별 Qna 리스트 생성 keyword = 상품번호(Long)
     Page<Object[]> getQnaList(String keyword, Pageable pageable);
+
+    Page<Object[]> getReviewList(String keyword, Pageable pageable);
 }

@@ -12,6 +12,7 @@ import org.handmade.miniproject.product.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @Log4j2
 @RequiredArgsConstructor

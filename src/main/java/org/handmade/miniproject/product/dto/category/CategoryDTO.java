@@ -1,8 +1,9 @@
 package org.handmade.miniproject.product.dto.category;
 
 import lombok.*;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +20,6 @@ public class CategoryDTO {
 
     private boolean del;
 
-    private String uuid;
+    private List<UploadImageDTO> imageList;
 
 }

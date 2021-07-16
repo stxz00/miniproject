@@ -2,6 +2,7 @@ package org.handmade.miniproject.product.entity;
 
 import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
+import org.handmade.miniproject.common.entity.UploadImage;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -24,9 +25,6 @@ public class Category extends BaseEntity {
 
     //대분류 여부
     private boolean cmain;
-
-    //예정 : 파일링크
-    private String uuid;
 
     private boolean del;
 
