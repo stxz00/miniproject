@@ -1,9 +1,7 @@
 package org.handmade.miniproject.product.dto.product;
 
 import lombok.*;
-import org.handmade.miniproject.product.dto.category.CategoryDTO;
-import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
-import org.handmade.miniproject.product.entity.Category;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

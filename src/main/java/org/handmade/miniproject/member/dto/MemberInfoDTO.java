@@ -1,8 +1,10 @@
 package org.handmade.miniproject.member.dto;
 
 import lombok.*;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -46,7 +48,8 @@ public class MemberInfoDTO {
 
 // TODO: 2021-07-13 프로필 사진은 한 장? 여러 장? 확인 후 하기 선언 수정
 //    //프로필 사진
-//    private List<UploadImageDTO> imageList;
+
+    private List<UploadImageDTO> imageList;
 
     //가입 일자
     private LocalDateTime regDate;

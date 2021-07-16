@@ -1,19 +1,13 @@
 package org.handmade.miniproject.product.service;
 
-import org.handmade.miniproject.common.dto.ListRequestDTO;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
-import org.handmade.miniproject.product.dto.Favorite.FavoriteListRequestDTO;
-import org.handmade.miniproject.product.dto.Favorite.ListFavoriteDTO;
-import org.handmade.miniproject.product.dto.qna.ListQnaDTO;
-import org.handmade.miniproject.product.dto.qna.QnaListRequestDTO;
 import org.handmade.miniproject.product.dto.review.ListReviewDTO;
 import org.handmade.miniproject.product.dto.review.ReviewDTO;
 import org.handmade.miniproject.product.dto.review.ReviewListRequestDTO;
-import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
 import org.handmade.miniproject.product.entity.Product;
-import org.handmade.miniproject.product.entity.Qna;
 import org.handmade.miniproject.product.entity.Review;
-import org.handmade.miniproject.product.entity.UploadImage;
+import org.handmade.miniproject.common.entity.UploadImage;
 
 import java.util.HashSet;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.handmade.miniproject.product.service;
+package org.handmade.miniproject.common.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

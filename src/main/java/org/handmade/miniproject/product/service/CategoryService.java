@@ -1,13 +1,10 @@
 package org.handmade.miniproject.product.service;
 
-import org.handmade.miniproject.common.dto.ListResponseDTO;
 import org.handmade.miniproject.product.dto.category.CategoryDTO;
-import org.handmade.miniproject.product.dto.category.CategoryListRequestDTO;
 import org.handmade.miniproject.product.dto.category.ListCategoryDTO;
-import org.handmade.miniproject.product.dto.qna.QnaDTO;
-import org.handmade.miniproject.product.dto.upload.UploadImageDTO;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
 import org.handmade.miniproject.product.entity.Category;
-import org.handmade.miniproject.product.entity.UploadImage;
+import org.handmade.miniproject.common.entity.UploadImage;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +16,6 @@ public interface CategoryService {
     Long register(CategoryDTO dto);
     List<ListCategoryDTO> getAllList();
     List<ListCategoryDTO> getMainList();
-
 
     //받아온 배열을 dto로 변환
     default ListCategoryDTO arrToDTO(Object[] arr) {
@@ -70,4 +66,6 @@ public interface CategoryService {
                 .del(entity.isDel())
                 .build();
     }
+
+
 }
