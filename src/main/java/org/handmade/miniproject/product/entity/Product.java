@@ -2,6 +2,7 @@ package org.handmade.miniproject.product.entity;
 
 import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
+import org.handmade.miniproject.common.entity.UploadImage;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -50,4 +50,6 @@ public class CategoryServiceImpl implements CategoryService{
         Page<Object[]> result = categoryRepository.getMainList(pageable);
         return result.getContent().stream().map(arr->arrToDTO(arr)).collect(Collectors.toList());
     }
+
+
 }
