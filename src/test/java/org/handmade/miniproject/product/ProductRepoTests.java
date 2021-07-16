@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.product.entity.Category;
 import org.handmade.miniproject.product.entity.Product;
-import org.handmade.miniproject.product.entity.UploadImage;
 import org.handmade.miniproject.product.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.IntStream;
 
 @SpringBootTest

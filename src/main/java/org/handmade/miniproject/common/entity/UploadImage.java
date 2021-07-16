@@ -1,4 +1,4 @@
-package org.handmade.miniproject.product.entity;
+package org.handmade.miniproject.common.entity;
 
 import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;

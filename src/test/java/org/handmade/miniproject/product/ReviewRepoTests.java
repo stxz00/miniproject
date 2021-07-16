@@ -1,10 +1,8 @@
 package org.handmade.miniproject.product;
 
-import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.entity.Review;
-import org.handmade.miniproject.product.entity.UploadImage;
 import org.handmade.miniproject.product.repository.ReviewRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
