@@ -1,4 +1,4 @@
-package org.handmade.miniproject.common.repository.dynamic;
+package org.handmade.miniproject.product.repository.dynamic;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
