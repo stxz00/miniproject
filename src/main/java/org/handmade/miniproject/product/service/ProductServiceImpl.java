@@ -9,7 +9,6 @@ import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
 import org.handmade.miniproject.product.entity.Product;
-import org.handmade.miniproject.product.entity.UploadImage;
 import org.handmade.miniproject.product.repository.CategoryRepository;
 import org.handmade.miniproject.product.repository.ProductRepository;
 import org.springframework.data.domain.Page;
