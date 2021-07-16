@@ -1,4 +1,4 @@
-package org.handmade.miniproject.common.repository.dynamic;
+package org.handmade.miniproject.product.repository.dynamic;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
