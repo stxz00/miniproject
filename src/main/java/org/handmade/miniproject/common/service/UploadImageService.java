@@ -13,5 +13,4 @@ public interface UploadImageService {
                 .build();
     }
 
-
 }
