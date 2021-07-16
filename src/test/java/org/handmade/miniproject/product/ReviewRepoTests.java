@@ -4,6 +4,7 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.entity.Review;
+import org.handmade.miniproject.product.entity.UploadImage;
 import org.handmade.miniproject.product.repository.ReviewRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ReviewRepoTests {
     @Test
     public void testInsert(){
         Product product = Product.builder().pno(1L).build();
-        IntStream.rangeClosed(1,100).forEach(i -> {
+        IntStream.rangeClosed(1,10).forEach(i -> {
             Review review = Review.builder()
                     .rcontent("댓글"+i)
                     .username("사용자"+i)

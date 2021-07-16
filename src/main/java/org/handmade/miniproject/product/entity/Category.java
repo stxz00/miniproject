@@ -25,9 +25,6 @@ public class Category extends BaseEntity {
     //대분류 여부
     private boolean cmain;
 
-    //예정 : 파일링크
-    private String uuid;
-
     private boolean del;
 
     //카테고리 이미지를 끌어오기 위해 생성

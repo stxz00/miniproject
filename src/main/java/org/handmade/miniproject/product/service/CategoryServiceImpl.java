@@ -6,6 +6,8 @@ import org.handmade.miniproject.common.dto.ListResponseDTO;
 import org.handmade.miniproject.product.dto.category.CategoryDTO;
 import org.handmade.miniproject.product.dto.category.CategoryListRequestDTO;
 import org.handmade.miniproject.product.dto.category.ListCategoryDTO;
+import org.handmade.miniproject.product.entity.Category;
+import org.handmade.miniproject.product.entity.Qna;
 import org.handmade.miniproject.product.repository.CategoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,13 @@ public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
 
+
+    @Override
+    public Long register(CategoryDTO dto) {
+        Category entity = dtoToEntity(dto);
+        categoryRepository.save(entity);
+        return entity.getCno();
+    }
 
     @Override
     public List<ListCategoryDTO> getAllList() {
