@@ -55,6 +55,7 @@ public class MemberInfoRepoTests {
             memberInfo.changeDel(true);
             memberInfoRepository.save(memberInfo);
         } );
+
     }
 
     //회원 찾기 샘플
