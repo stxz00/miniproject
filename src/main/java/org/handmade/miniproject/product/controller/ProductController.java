@@ -30,8 +30,19 @@ public class ProductController {
 
     //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(ProductListRequestDTO requestDTO){
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(@PathVariable ProductListRequestDTO requestDTO){
         log.info("------------------------------");
+        log.info(requestDTO);
+        return ResponseEntity.ok(productService.getList(requestDTO));
+    }
+
+    //상품 통합검색 및 검색 조건별 검색
+    @GetMapping("/list/pages/{page}")
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> sss (@PathVariable  int page){
+        log.info("------------------------------");
+        ProductListRequestDTO requestDTO = new ProductListRequestDTO();
+        requestDTO.setPage(page);
+        log.info(requestDTO);
         return ResponseEntity.ok(productService.getList(requestDTO));
     }
 

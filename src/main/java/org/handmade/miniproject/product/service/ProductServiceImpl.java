@@ -14,6 +14,7 @@ import org.handmade.miniproject.product.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -108,7 +109,8 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ListResponseDTO<ListProductDTO> getList(ProductListRequestDTO productListRequestDTO) {
 
-        Pageable pageable = PageRequest.of(0,10);
+        Pageable pageable =
+                PageRequest.of( (productListRequestDTO.getPage()<=0 ? 0 : productListRequestDTO.getPage()) -1, 10);
         Page<Object[]> result =productRepository
                 .getSearchList(productListRequestDTO.getType(), productListRequestDTO.getKeyword(), pageable);
 
