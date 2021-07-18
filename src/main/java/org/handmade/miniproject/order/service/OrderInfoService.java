@@ -1,8 +1,10 @@
 package org.handmade.miniproject.order.service;
 
+import org.handmade.miniproject.common.dto.ListResponseDTO;
 import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.order.dto.ListOrderInfoDTO;
 import org.handmade.miniproject.order.dto.OrderInfoDTO;
+import org.handmade.miniproject.order.dto.OrderInfoListRequestDTO;
 import org.handmade.miniproject.order.entity.OrderInfo;
 import org.handmade.miniproject.product.entity.Product;
 
@@ -10,22 +12,23 @@ import java.util.List;
 
 public interface OrderInfoService {
     Long register(OrderInfoDTO orderInfoDTO);
-    List<ListOrderInfoDTO> getOrderList();
-    OrderInfoDTO getOrder(Long ono);
-    OrderInfoDTO modifyOrder(Long ono);
+    ListResponseDTO<ListOrderInfoDTO> getCartList(OrderInfoListRequestDTO orderInfoListRequestDTO);
+    OrderInfoDTO getListDetail(Long ono);       // 장바구니 및 주문현황 리스트에서 선택한 주문 조회
+    Long deleteCart(Long ono);
+    Long payOrder(OrderInfoDTO orderInfoDTO);
+    ListResponseDTO<ListOrderInfoDTO> getOrderList(OrderInfoListRequestDTO orderInfoListRequestDTO);
+    OrderInfoDTO modifyOrder(OrderInfoDTO orderInfoDTO);
     Long deleteOrder(Long ono);
 
-    // TODO: 2021-07-16 배열에서 dto 묶음으로 변경하는 함수 확인
     // 주문 리스트를 DTO로 변환
     default ListOrderInfoDTO arrToDTO(Object[] arr) {
-        Long ono = (Long) arr[0];
-        String pname = (String) arr[2];
-        int price = (int) arr[3];
+
         return ListOrderInfoDTO.builder()
-                .ono(ono)
-                .pname(pname)
-                .price(price)
+                .ono((Long) arr[0])
+                .pname((String) arr[2])
+                .price((int) arr[3])
                 .build();
+
     }
 
     // 주문 DTO를 Entity로 변환
@@ -34,7 +37,7 @@ public interface OrderInfoService {
                 .ono(entity.getOno())
                 .pname(entity.getProduct().getPname())
                 .price(entity.getProduct().getPrice())
-                .oUsername(entity.getOUsername())
+                .oName(entity.getOName())
                 .oZipcode(entity.getOZipcode())
                 .oAddress1(entity.getOAddress1())
                 .oAddress2(entity.getOAddress2())
@@ -53,7 +56,7 @@ public interface OrderInfoService {
     default OrderInfo dtoToEntity(OrderInfoDTO dto, Product product, MemberInfo memberInfo) {
         return OrderInfo.builder()
                 .ono(dto.getOno())
-                .oUsername(dto.getOUsername())
+                .oName(dto.getOName())
                 .oZipcode(dto.getOZipcode())
                 .oAddress1(dto.getOAddress1())
                 .oAddress2(dto.getOAddress2())

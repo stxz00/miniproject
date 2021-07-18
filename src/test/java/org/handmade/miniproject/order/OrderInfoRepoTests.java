@@ -1,6 +1,7 @@
 package org.handmade.miniproject.order;
 
 import lombok.extern.log4j.Log4j2;
+import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.order.entity.OrderInfo;
 import org.handmade.miniproject.order.repository.OrderInfoRepository;
 import org.handmade.miniproject.order.service.OrderInfoService;
@@ -21,6 +22,35 @@ public class OrderInfoRepoTests {
     @Autowired
     private OrderInfoService orderInfoService;
 
+    @Test
+    public void insertOne() {
+
+        long pno = (int)(Math.random()*100)+1;
+        long mno = (int)(Math.random()*100)+1;
+        Product product = Product.builder().pno(pno).build();
+        MemberInfo memberInfo = MemberInfo.builder().username("user"+mno+"@aaa.com").build();
+
+        log.info("======================");
+        log.info("pno: "+pno);
+
+        OrderInfo orderInfo = OrderInfo.builder()
+                .oName("수취인")
+                .oZipcode("우편번호")
+                .oAddress1("주소")
+                .oAddress2("상세주소")
+                .oTel1("전화번호 앞자리")
+                .oTel2("전화번호 가운데자리")
+                .oTel3("전화번호 뒷자리")
+                .oRequest("배송메모")
+                .del(false)
+                .product(product)
+                .memberInfo(memberInfo)
+                .build();
+
+        orderInfoRepository.save(orderInfo);
+
+    }
+
     // 주문 추가
     @Test
     public void insertDummy() {
@@ -28,13 +58,15 @@ public class OrderInfoRepoTests {
         IntStream.rangeClosed(1,100).forEach(i -> {
 
             long pno = (int)(Math.random()*100)+1;
+            long mno = (int)(Math.random()*100)+1;
             Product product = Product.builder().pno(pno).build();
+            MemberInfo memberInfo = MemberInfo.builder().username("user"+mno+"@aaa.com").build();
 
             log.info("======================");
             log.info("pno: "+pno);
 
             OrderInfo orderInfo = OrderInfo.builder()
-                    .oUsername("수취인"+i)
+                    .oName("수취인"+i)
                     .oZipcode("우편번호"+i)
                     .oAddress1("주소"+i)
                     .oAddress2("상세주소"+i)
@@ -44,6 +76,7 @@ public class OrderInfoRepoTests {
                     .oRequest("배송메모"+i)
                     .del(false)
                     .product(product)
+                    .memberInfo(memberInfo)
                     .build();
 
             orderInfoRepository.save(orderInfo);
