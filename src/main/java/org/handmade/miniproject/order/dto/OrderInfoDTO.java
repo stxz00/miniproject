@@ -14,11 +14,12 @@ public class OrderInfoDTO {
     private Long ono;
 
     // 주문한 상품의 정보
+    private Long pno;       // 검색용 상품 번호
     private String pname;   // 상품 이름
     private int price;      // 상품 가격
 
     // 주문자의 정보
-    private String mUsername;   // 주문자 이름
+    private String mName;   // 주문자 이름
     private String mZipcode;    // 주문자 우편번호
     private String mAddress1;   // 주문자 주소
     private String mAddress2;   // 주문자 상세 주소
@@ -27,7 +28,7 @@ public class OrderInfoDTO {
     private String mTel3;       // 주문자 연락처 뒷자리
 
     // 수령인의 정보
-    private String oUsername;
+    private String oName;
     private String oZipcode;
     private String oAddress1;
     private String oAddress2;
