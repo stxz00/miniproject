@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.member.dto.MemberInfoDTO;
 import org.handmade.miniproject.member.entity.MemberInfo;
+import org.handmade.miniproject.member.entity.MemberRole;
 import org.handmade.miniproject.member.repository.MemberInfoRepository;
 import org.springframework.stereotype.Service;
 
@@ -101,5 +102,43 @@ public class MemberInfoServiceImpl implements MemberInfoService {
         return null;
 
     }
+
+    //구매자 회원가입
+    @Override
+    public String registerCustomer(MemberInfoDTO memberInfoDTO) {
+        log.info(memberInfoDTO);
+
+        MemberInfo entity = dtoToEntity(memberInfoDTO);
+
+        log.info("==============================");
+        entity.addMemberRole(MemberRole.CUSTOMER);
+        log.info(entity);
+
+
+        MemberInfo result = memberInfoRepository.save(entity);
+
+        //등록시 가입한 유저의 ID(이메일) 반환
+        return result.getUsername();
+    }
+
+    //판매자 회원가입
+    @Override
+    public String registerSeller(MemberInfoDTO memberInfoDTO) {
+        log.info(memberInfoDTO);
+
+        MemberInfo entity = dtoToEntity(memberInfoDTO);
+
+        log.info("==============================");
+        entity.addMemberRole(MemberRole.CUSTOMER); //판매자도 구입할 수 있도록
+        entity.addMemberRole(MemberRole.SELLER);
+        log.info(entity);
+
+
+        MemberInfo result = memberInfoRepository.save(entity);
+
+        //등록시 가입한 유저의 ID(이메일) 반환
+        return result.getUsername();
+    }
+
 
 }

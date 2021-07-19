@@ -54,5 +54,8 @@ public interface MemberInfoService {
                 .build();
     }
 
+    String registerCustomer(MemberInfoDTO memberInfoDTO);
+    String registerSeller(MemberInfoDTO memberInfoDTO);
+
 
 }

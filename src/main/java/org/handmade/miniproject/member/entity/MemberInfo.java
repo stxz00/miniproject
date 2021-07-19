@@ -3,9 +3,9 @@ package org.handmade.miniproject.member.entity;
 import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="MemberInfo")
@@ -73,4 +73,11 @@ public class MemberInfo extends BaseEntity {
         this.mdel = mdel;
     }
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<MemberRole> memberRoleSet = new HashSet<>();
+
+    public void addMemberRole(MemberRole role){
+        memberRoleSet.add(role);
+    }
 }
