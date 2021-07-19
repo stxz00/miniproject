@@ -60,4 +60,5 @@ public class MemberInfoDTO {
     //탈퇴 여부
     private boolean mdel;
 
+
 }
