@@ -118,6 +118,7 @@ public class ProductServiceImpl implements ProductService{
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());
 
         PageMaker pageMaker = new PageMaker(1,10, (int) result.getTotalElements());
+        pageMaker.makePageList(pageable);
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
 
@@ -125,6 +126,9 @@ public class ProductServiceImpl implements ProductService{
                 .dtoList(boardDToList)
                 .pageMaker(pageMaker)
                 .listRequestDTO(productListRequestDTO)
+                .page(pageMaker.getPage())
+                .start(pageMaker.getStart())
+                .end(pageMaker.getEnd())
                 .build();
     }
 
