@@ -50,7 +50,7 @@ public class FavoriteServiceImpl implements FavoriteService{
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());
 
         PageMaker pageMaker = new PageMaker(1,10, (int) result.getTotalElements());
-
+        pageMaker.makePageList(pageable);
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
 
         return ListResponseDTO.<ListFavoriteDTO>builder()
