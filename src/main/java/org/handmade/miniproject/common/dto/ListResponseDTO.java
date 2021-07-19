@@ -18,4 +18,9 @@ public class ListResponseDTO<D> { //공용이니 제네릭으로 어느 DTO 가 
     private List<D> dtoList;
 
     private PageMaker pageMaker;
+
+    private int page,start,end;
+
+
+
 }

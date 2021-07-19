@@ -62,6 +62,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                 tupleList.stream().map(tuple1 -> tuple1.toArray()).collect(Collectors.toList());
         long totalCount = tuple.fetchCount();
 
+
         return new PageImpl<>(arrList,pageable,totalCount);
     }
 
