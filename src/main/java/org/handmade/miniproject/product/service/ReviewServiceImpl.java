@@ -80,7 +80,7 @@ public class ReviewServiceImpl implements ReviewService{
     public ListResponseDTO<ListReviewDTO> getList(ReviewListRequestDTO listRequestDTO) {
         System.out.println(listRequestDTO.getPage());
 
-        Pageable pageable = PageRequest.of( (listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 10);
+        Pageable pageable = PageRequest.of( (listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 5);
 
         Page<Object[]> result = reviewRepository
                 .getReviewList(listRequestDTO.getKeyword(), pageable);
@@ -88,7 +88,7 @@ public class ReviewServiceImpl implements ReviewService{
         List<ListReviewDTO> reviewDToList =
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());
 
-        PageMaker pageMaker = new PageMaker(1,10, (int) result.getTotalElements());
+        PageMaker pageMaker = new PageMaker(1,5, (int) result.getTotalElements());
         pageMaker.makePageList(pageable);
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
