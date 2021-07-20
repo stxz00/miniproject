@@ -24,7 +24,7 @@ public class MemberInfoRepoTests {
     @Test
     public void testInsert() {
 
-        IntStream.rangeClosed(1, 100).forEach(i -> {
+        IntStream.rangeClosed(1, 20).forEach(i -> {
             MemberInfo memberInfo = MemberInfo.builder()
                     .username("user"+i+"@aaa.com")
                     .userPwd("asdf1234"+i)
@@ -39,7 +39,10 @@ public class MemberInfoRepoTests {
                     .brno("1234567890")
                     .mdel(false)
                     .build();
-            memberInfo.addMemberRole(MemberRole.ADMIN);
+
+            if(i>=80)   memberInfo.addMemberRole(MemberRole.ADMIN);
+            else if(i<80)    memberInfo.addMemberRole(MemberRole.SELLER);
+            else if(i<60) memberInfo.addMemberRole(MemberRole.CUSTOMER);
 
             memberInfoRepository.save(memberInfo);
 

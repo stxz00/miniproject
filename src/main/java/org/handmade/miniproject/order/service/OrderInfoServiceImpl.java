@@ -1,6 +1,5 @@
 package org.handmade.miniproject.order.service;
 
-import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -79,6 +79,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     @Override
+    @Transactional
     public OrderInfoDTO getListDetail(Long ono) {
         return entityToDTO(orderInfoRepository.findById(ono).get());
     }
