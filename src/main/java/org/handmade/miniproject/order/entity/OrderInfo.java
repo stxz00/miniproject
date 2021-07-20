@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"product", "MemberInfo"})
+@ToString(exclude = {"product","memberInfo"})
 public class OrderInfo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

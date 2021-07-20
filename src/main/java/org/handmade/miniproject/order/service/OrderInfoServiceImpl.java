@@ -81,7 +81,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     @Transactional
     public OrderInfoDTO getListDetail(Long ono) {
-        return entityToDTO(orderInfoRepository.findById(ono).get());
+        return entityToDTO(orderInfoRepository.getById(ono));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public Long payOrder(OrderInfoDTO orderInfoDTO) {
 
-        Optional<OrderInfo> result = orderInfoRepository.findById(orderInfoDTO.getOno());
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(orderInfoDTO.getOno()));
 
         if(result.isPresent()){
 
@@ -141,7 +141,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public OrderInfoDTO modifyOrder(OrderInfoDTO orderInfoDTO) {
-        Optional<OrderInfo> result = orderInfoRepository.findById(orderInfoDTO.getOno());
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(orderInfoDTO.getOno()));
 
         if(result.isPresent()){
             OrderInfo entity = result.get();
@@ -162,7 +162,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public Long deleteOrder(Long ono) {
-        Optional<OrderInfo> result = orderInfoRepository.findById(ono);
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(ono));
 
         if(result.isPresent()){
             OrderInfo entity = result.get();
@@ -173,7 +173,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             orderInfoRepository.save(entity);
 
             return ono;
-        } 
+        }
 
         return null;
 

@@ -139,11 +139,11 @@ public class OrderInfoRepoTests {
 
     // 주문 1개 조회
     @Test
-    @Transactional
+//    @Transactional
     public void getListDetail() {
         Long ono = 1L;
 
-        OrderInfo entity = orderInfoRepository.findById(ono).get();
+        OrderInfo entity = orderInfoRepository.getById(ono);
 
         log.info(entity);
 
@@ -152,7 +152,7 @@ public class OrderInfoRepoTests {
         log.info(dto);
     }
 
-    // 결제 완료 상태로 변경
+    // 장바구니에서 삭제
     @Test
     public void deleteCart() {
         Long ono = 101L;
@@ -165,7 +165,7 @@ public class OrderInfoRepoTests {
     @Test
     @Transactional
     public void deleteOrder() {
-        Optional<OrderInfo> result = orderInfoRepository.findById(100L);
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(100L));
         log.info(result);
         log.info("==================================");
 
@@ -175,7 +175,7 @@ public class OrderInfoRepoTests {
             log.info("==================================");
 
             // 주문 현황에서 '주문 취소' 상태로 만들어 주어야 하므로 del을 true로 변경해줌
-            entity.changeDel(true);
+            entity.changeDel(false);
 
             orderInfoRepository.save(entity);
 
