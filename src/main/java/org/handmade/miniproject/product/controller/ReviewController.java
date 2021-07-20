@@ -45,10 +45,12 @@ public class ReviewController {
     }
 
     //상품 한 개 리뷰 리스트 조회
-    @GetMapping("/list/{pno}")
-    public ResponseEntity<ListResponseDTO<ListReviewDTO>> list(@PathVariable String pno){
+    @GetMapping("/list")
+    public ResponseEntity<ListResponseDTO<ListReviewDTO>> list(String pno,int page){
+        System.out.println(page);
         ReviewListRequestDTO requestDTO = new ReviewListRequestDTO();
         requestDTO.setKeyword(pno);
+        requestDTO.setPage(page);
         return ResponseEntity.ok(reviewService.getList(requestDTO));
     }
 

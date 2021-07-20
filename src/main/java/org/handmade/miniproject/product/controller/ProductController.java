@@ -30,7 +30,7 @@ public class ProductController {
 
     //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(@PathVariable ProductListRequestDTO requestDTO){
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> list( ProductListRequestDTO requestDTO){
         log.info("------------------------------");
         log.info(requestDTO);
         return ResponseEntity.ok(productService.getList(requestDTO));
