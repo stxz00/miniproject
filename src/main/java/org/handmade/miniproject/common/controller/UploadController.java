@@ -12,10 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -42,13 +39,13 @@ public class UploadController {
     private String path;
 
     @ResponseBody
-    @GetMapping(value = "/down")
-    public ResponseEntity<byte[]> down(String file){
+    @GetMapping(value = "/down/{file}")
+    public ResponseEntity<byte[]> down(@PathVariable String file){
 
         log.info("--------------------down: " + file);
-
+        System.out.println(file);
         File target = new File(path, file);
-
+        System.out.println("-------------------------------------");
         String mimeType = null;
         try {
             mimeType = Files.probeContentType(target.toPath()); //파일의 확장자 네임 추출
