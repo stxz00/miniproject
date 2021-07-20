@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "product")
+@ToString
 @Builder
 @Getter
 public class Favorite {
@@ -21,6 +21,7 @@ public class Favorite {
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Product product;
 
 }

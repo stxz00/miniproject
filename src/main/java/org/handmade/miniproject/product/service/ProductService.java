@@ -1,6 +1,7 @@
 package org.handmade.miniproject.product.service;
 
 import org.handmade.miniproject.common.dto.ListResponseDTO;
+import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
@@ -52,7 +53,6 @@ public interface ProductService {
 
         return ProductDTO.builder()
                 .pno(entity.getPno())
-                .username(entity.getUsername())
                 .pcontent(entity.getPcontent())
                 .price(entity.getPrice())
                 .pname(entity.getPname())
@@ -65,7 +65,7 @@ public interface ProductService {
     }
 
     //상품 dto 를 엔티티로 변환. 카테고리는 dto 의 getCno 및 findById 를 통해 가져오기
-   default Product dtoToEntity(ProductDTO dto, Category category){
+   default Product dtoToEntity(ProductDTO dto, Category category, MemberInfo memberInfo){
         Set<UploadImage> imageSet = new HashSet<>();
         for (UploadImageDTO uploadImageDTO : dto.getImageList()) {
             UploadImage build = UploadImage.builder()
@@ -79,13 +79,13 @@ public interface ProductService {
 
         return Product.builder()
                 .pno(dto.getPno())
-                .username(dto.getUsername())
                 .pcontent(dto.getPcontent())
                 .price(dto.getPrice())
                 .pname(dto.getPname())
                 .pcount(dto.getPcount())
                 .uploadImages(imageSet)
                 .del(dto.isDel())
+                .memberInfo(memberInfo)
                 .category(category)
                 .build();
     }

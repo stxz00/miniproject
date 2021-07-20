@@ -3,6 +3,7 @@ package org.handmade.miniproject.product.repository.dynamic;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPQLQuery;
+import org.handmade.miniproject.member.entity.QMemberInfo;
 import org.handmade.miniproject.product.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,10 +27,12 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         QFavorite favorite = QFavorite.favorite;
         QReview review = QReview.review;
         QQna qna = QQna.qna;
+        QMemberInfo memberInfo = QMemberInfo.memberInfo;
 
         JPQLQuery query = from(product);
         query.leftJoin(favorite).on(favorite.product.eq(product));
         query.leftJoin(review).on(review.product.eq(product));
+        query.leftJoin(memberInfo).on(memberInfo.username.eq(product.memberInfo.username));
 
         JPQLQuery<Tuple> tuple = query.select(product, favorite.countDistinct(),review.countDistinct());
 
@@ -40,7 +43,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                 if(t.equals("t")){ //제목 : 상품명
                     condition.or(product.pname.contains(keyword));
                 }else if(t.equals("w")){ //작성자 : 판매자
-                    condition.or(product.username.contains(keyword));
+                    condition.or(memberInfo.username.contains(keyword));
                 }else if(t.equals("c")){ //내용 : 상품 내용
                     condition.or(product.pcontent.contains(keyword));
                 }
