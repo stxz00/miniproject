@@ -24,7 +24,7 @@ public class SignController {
     public String main(Principal principal){
         log.info("메인페이지로");
         System.out.println(principal.getName());
-        return "redirect:http://192.168.1.35:3000";
+        return "redirect:http://localhost:3000";
     }
 
 
