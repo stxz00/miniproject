@@ -2,8 +2,10 @@ package org.handmade.miniproject.member.dto;
 
 import lombok.*;
 import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
+import org.handmade.miniproject.member.entity.Role;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,7 +19,7 @@ public class MemberInfoDTO {
     private String username;
 
     //패스워드
-    private String userPwd;
+    private String password;
 
     //닉네임
     private String nickname;
@@ -57,8 +59,10 @@ public class MemberInfoDTO {
     //회원 정보 수정 일자
     private LocalDateTime modDate;
 
-    //탈퇴 여부
-    private boolean mdel;
+    //탈퇴 여부 => false(0)가 탈퇴
+    private boolean enabled;
+
+    private List<Role> roles = new ArrayList<Role>();
 
 
 }

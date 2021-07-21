@@ -14,15 +14,40 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/member")
 public class MemberInfoController {
 
-    private MemberInfoService memberInfoService;
+    private final MemberInfoService memberInfoService;
 
-    //회원가입
-    @PostMapping("/signIn")
-    public ResponseEntity<String> register(@RequestBody MemberInfoDTO dto) {
+    //판매자 회원가입
+    @PostMapping("/customer")
+    public ResponseEntity<String> customerRegister(@RequestBody MemberInfoDTO dto) {
 
         log.info(dto);
 
-        String username = memberInfoService.register(dto);
+        String username = memberInfoService.customerRegister(dto);
+
+        return ResponseEntity.ok(username);
+
+    }
+
+
+    //판매자 회원가입
+    @PostMapping("/seller")
+    public ResponseEntity<String> sellerRegister(@RequestBody MemberInfoDTO dto) {
+
+        log.info(dto);
+
+        String username = memberInfoService.sellerRegister(dto);
+
+        return ResponseEntity.ok(username);
+
+    }
+
+    //관리자 회원가입
+    @PostMapping("/admin")
+    public ResponseEntity<String> adminRegister(@RequestBody MemberInfoDTO dto) {
+
+        log.info(dto);
+
+        String username = memberInfoService.adminRegister(dto);
 
         return ResponseEntity.ok(username);
 

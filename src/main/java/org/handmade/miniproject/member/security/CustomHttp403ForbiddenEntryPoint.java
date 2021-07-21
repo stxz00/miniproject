@@ -1,3 +1,4 @@
+/*
 package org.handmade.miniproject.member.security;
 
 import lombok.extern.log4j.Log4j2;
@@ -31,3 +32,4 @@ public class CustomHttp403ForbiddenEntryPoint implements AuthenticationEntryPoin
     }
 
 }
+*/
