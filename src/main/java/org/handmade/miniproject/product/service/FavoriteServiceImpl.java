@@ -42,7 +42,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 
     @Override
     public ListResponseDTO<ListFavoriteDTO> getList(FavoriteListRequestDTO listRequestDTO) {
-        Pageable pageable = PageRequest.of(0,10);
+        Pageable pageable = PageRequest.of( (listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 10);
         Page<Object[]> result =favoriteRepository
                 .getFavoriteList(listRequestDTO.getKeyword(), pageable);
 
