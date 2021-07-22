@@ -116,7 +116,7 @@ public class ProductServiceImpl implements ProductService{
         Pageable pageable =
                 PageRequest.of( (productListRequestDTO.getPage()<=0 ? 0 : productListRequestDTO.getPage()) -1, 10);
         Page<Object[]> result =productRepository
-                .getSearchList(productListRequestDTO.getType(), productListRequestDTO.getKeyword(), pageable);
+                .getSearchList(productListRequestDTO.getType(), productListRequestDTO.getKeyword(),productListRequestDTO.getCname(), pageable);
 
         List<ListProductDTO> boardDToList =
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());

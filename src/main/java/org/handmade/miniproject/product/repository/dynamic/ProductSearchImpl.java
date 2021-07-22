@@ -21,22 +21,25 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
     }
 
     @Override
-    public Page<Object[]> getSearchList(String type, String keyword, Pageable pageable) {
+    public Page<Object[]> getSearchList(String type, String keyword,String cname, Pageable pageable) {
 
         QProduct product = QProduct.product;
         QFavorite favorite = QFavorite.favorite;
         QReview review = QReview.review;
         QQna qna = QQna.qna;
         QMemberInfo memberInfo = QMemberInfo.memberInfo;
+        QCategory category = QCategory.category;
+
 
         JPQLQuery query = from(product);
         query.leftJoin(favorite).on(favorite.product.eq(product));
         query.leftJoin(review).on(review.product.eq(product));
         query.leftJoin(memberInfo).on(memberInfo.username.eq(product.memberInfo.username));
+        query.leftJoin(category).on(category.cname.eq(product.category.cname));
 
         JPQLQuery<Tuple> tuple = query.select(product, favorite.countDistinct(),review.countDistinct());
 
-        if(keyword != null && type != null){
+        if(keyword != null && type != null && !keyword.equals("undefined") && !type.equals("undefined")){
             BooleanBuilder condition = new BooleanBuilder();
             String[] typeArr = type.split("");
             for (String t: typeArr){
@@ -49,6 +52,11 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                 }
             }//end for
             tuple.where(condition);
+        }
+
+        if(cname != null && !cname.equals("undefined") ){
+            System.out.println("네이밍이!! = "+cname);
+            tuple.where(category.cname.eq(cname));
         }
 
         tuple.where(product.pno.gt(0L)); //상품 인덱스를 실행하기 위한 쿼리
