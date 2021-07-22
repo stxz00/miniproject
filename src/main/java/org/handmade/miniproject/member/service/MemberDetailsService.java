@@ -1,3 +1,4 @@
+/*
 package org.handmade.miniproject.member.service;
 
 import lombok.RequiredArgsConstructor;
@@ -45,3 +46,4 @@ public class MemberDetailsService implements UserDetailsService {
         return null;
     }
 }
+*/

@@ -10,6 +10,7 @@ import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
 import org.handmade.miniproject.product.dto.qna.QnaListRequestDTO;
 import org.handmade.miniproject.product.service.CategoryService;
 import org.handmade.miniproject.product.service.ProductService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +32,20 @@ public class ProductController {
 
     //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(String type,String keyword,int page){
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(int page, String cname, String keyword, String type){
         log.info("------------------------------");
+        System.out.println("cname= "+ cname.equals("undefined"));
         System.out.println(page);
         ProductListRequestDTO requestDTO = new ProductListRequestDTO();
         requestDTO.setType(type);
         requestDTO.setKeyword(keyword);
         requestDTO.setPage(page);
+        requestDTO.setCname(cname);
+        log.info("dssdsddsfuhsdufsdjfdsjfidfds");
         return ResponseEntity.ok(productService.getList(requestDTO));
     }
 
-    //상품 통합검색 및 검색 조건별 검색
+    /*//상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list/pages/{page}")
     public ResponseEntity<ListResponseDTO<ListProductDTO>> sss (@PathVariable  int page){
         log.info("------------------------------");
@@ -49,12 +53,12 @@ public class ProductController {
         requestDTO.setPage(page);
         log.info(requestDTO);
         return ResponseEntity.ok(productService.getList(requestDTO));
-    }
+    }*/
 
     //상품 한 개 조회
     @GetMapping("/{pno}")
     public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
-        log.info(pno);
+        //log.info(pno);
         return ResponseEntity.ok(productService.read(pno));
     }
 

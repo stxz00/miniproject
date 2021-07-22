@@ -4,8 +4,8 @@ import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="MemberInfo")
@@ -20,7 +20,7 @@ public class MemberInfo extends BaseEntity {
     private String username;
 
     //패스워드
-    private String userPwd;
+    private String password;
 
     //이름
     private String mname;
@@ -50,7 +50,7 @@ public class MemberInfo extends BaseEntity {
     private String brno;
 
     //탈퇴 여부
-    private boolean mdel;
+    private boolean enabled;
 
 // TODO: 2021-07-13  UploadImage 처리 어떻게 할건지 확인 후 하기 선언 수정
 //    @Builder.Default
@@ -59,7 +59,7 @@ public class MemberInfo extends BaseEntity {
 //    public void addImage(UploadImage image) { uploadImages.add(image) }
 
     //회원 정보 수정을 위한 메소드
-    public void changeUserPwd(String userPwd) { this.userPwd = userPwd;  }
+    public void changeUserPwd(String userPwd) { this.password = userPwd;  }
     public void changeMname(String mname) { this.mname = mname; }
     public void changeNickname(String nickname) {   this.nickname = nickname;   }
     public void changeMzipcode(String mzipcode) {   this.mzipcode = mzipcode;   }
@@ -69,15 +69,22 @@ public class MemberInfo extends BaseEntity {
     public void changeMtel2(String mtel2) { this.mtel2 = mtel2; }
     public void changeMtel3(String mtel3) { this.mtel3 = mtel3; }
     public void changeBrno(String brno) {   this.brno = brno;   }
-    public void changeDel(boolean mdel){
-        this.mdel = mdel;
+    public void changeDel(boolean enabled){
+        this.enabled = enabled;
     }
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ManyToMany
+    @JoinTable(
+            name = "memberRole",
+            joinColumns= @JoinColumn(name = "member_username"),
+            inverseJoinColumns = @JoinColumn(name = "role_num"))
+    private List<Role> roles = new ArrayList<Role>();
+
+   /* @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> memberRoleSet = new HashSet<>();
 
     public void addMemberRole(MemberRole role){
         memberRoleSet.add(role);
-    }
+    }*/
 }

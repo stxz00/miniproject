@@ -3,6 +3,7 @@ package org.handmade.miniproject.product.repository.dynamic;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPQLQuery;
+import org.handmade.miniproject.member.entity.QMemberInfo;
 import org.handmade.miniproject.product.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,32 +21,42 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
     }
 
     @Override
-    public Page<Object[]> getSearchList(String type, String keyword, Pageable pageable) {
+    public Page<Object[]> getSearchList(String type, String keyword,String cname, Pageable pageable) {
 
         QProduct product = QProduct.product;
         QFavorite favorite = QFavorite.favorite;
         QReview review = QReview.review;
         QQna qna = QQna.qna;
+        QMemberInfo memberInfo = QMemberInfo.memberInfo;
+        QCategory category = QCategory.category;
+
 
         JPQLQuery query = from(product);
         query.leftJoin(favorite).on(favorite.product.eq(product));
         query.leftJoin(review).on(review.product.eq(product));
+        query.leftJoin(memberInfo).on(memberInfo.username.eq(product.memberInfo.username));
+        query.leftJoin(category).on(category.cname.eq(product.category.cname));
 
         JPQLQuery<Tuple> tuple = query.select(product, favorite.countDistinct(),review.countDistinct());
 
-        if(keyword != null && type != null){
+        if(keyword != null && type != null && !keyword.equals("undefined") && !type.equals("undefined")){
             BooleanBuilder condition = new BooleanBuilder();
             String[] typeArr = type.split("");
             for (String t: typeArr){
                 if(t.equals("t")){ //제목 : 상품명
                     condition.or(product.pname.contains(keyword));
                 }else if(t.equals("w")){ //작성자 : 판매자
-                    condition.or(product.username.contains(keyword));
+                    condition.or(memberInfo.username.contains(keyword));
                 }else if(t.equals("c")){ //내용 : 상품 내용
                     condition.or(product.pcontent.contains(keyword));
                 }
             }//end for
             tuple.where(condition);
+        }
+
+        if(cname != null && !cname.equals("undefined") ){
+            System.out.println("네이밍이!! = "+cname);
+            tuple.where(category.cname.eq(cname));
         }
 
         tuple.where(product.pno.gt(0L)); //상품 인덱스를 실행하기 위한 쿼리

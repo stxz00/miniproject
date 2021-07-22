@@ -5,6 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
 import org.handmade.miniproject.common.dto.PageMaker;
 import org.handmade.miniproject.common.service.UploadImageService;
+import org.handmade.miniproject.member.repository.MemberInfoRepository;
+import org.handmade.miniproject.member.service.MemberInfoService;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
@@ -34,13 +36,15 @@ public class ProductServiceImpl implements ProductService{
 
     private final UploadImageService uploadImageService;
 
+    private final MemberInfoRepository memberInfoRepository;
+
     //상품 등록하기
     @Override
     public Long register(ProductDTO productDTO) {
         log.info(productDTO);
 
         //Entity 로 변경
-        Product entity = dtoToEntity(productDTO,categoryRepository.findById(productDTO.getCno()).get());
+        Product entity = dtoToEntity(productDTO,categoryRepository.findById(productDTO.getCno()).get(),memberInfoRepository.findById(productDTO.getUsername()).get());
 
         log.info("========================================================");
         log.info(entity);
@@ -112,7 +116,7 @@ public class ProductServiceImpl implements ProductService{
         Pageable pageable =
                 PageRequest.of( (productListRequestDTO.getPage()<=0 ? 0 : productListRequestDTO.getPage()) -1, 10);
         Page<Object[]> result =productRepository
-                .getSearchList(productListRequestDTO.getType(), productListRequestDTO.getKeyword(), pageable);
+                .getSearchList(productListRequestDTO.getType(), productListRequestDTO.getKeyword(),productListRequestDTO.getCname(), pageable);
 
         List<ListProductDTO> boardDToList =
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());

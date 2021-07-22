@@ -5,7 +5,12 @@ import org.handmade.miniproject.member.entity.MemberInfo;
 
 public interface MemberInfoService {
 
-    String register(MemberInfoDTO memberInfoDTO);
+    String adminRegister(MemberInfoDTO memberInfoDTO);
+    String sellerRegister(MemberInfoDTO memberInfoDTO);
+    String customerRegister(MemberInfoDTO memberInfoDTO);
+
+
+    //String register(MemberInfoDTO memberInfoDTO);
 
     MemberInfoDTO getMemberInfo(String username);
 
@@ -19,7 +24,7 @@ public interface MemberInfoService {
 
         return MemberInfoDTO.builder()
                 .username(entity.getUsername())
-                .userPwd(entity.getUserPwd())
+                .password(entity.getPassword())
                 .nickname(entity.getNickname())
                 .mname(entity.getMname())
                 .mzipcode(entity.getMzipcode())
@@ -31,7 +36,8 @@ public interface MemberInfoService {
                 .brno(entity.getBrno())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
-                .mdel(entity.isMdel())
+                .enabled(entity.isEnabled())
+                .roles(entity.getRoles())
                 .build();
     }
 
@@ -41,7 +47,7 @@ public interface MemberInfoService {
 
         return MemberInfo.builder()
                 .username(dto.getUsername())
-                .userPwd(dto.getUserPwd())
+                .password(dto.getPassword())
                 .nickname(dto.getNickname())
                 .mname(dto.getMname())
                 .mzipcode(dto.getMzipcode())
@@ -51,11 +57,12 @@ public interface MemberInfoService {
                 .mtel2(dto.getMtel2())
                 .mtel3(dto.getMtel3())
                 .brno(dto.getBrno())
+                .roles(dto.getRoles())
                 .build();
     }
-
+/*
     String registerCustomer(MemberInfoDTO memberInfoDTO);
-    String registerSeller(MemberInfoDTO memberInfoDTO);
+    String registerSeller(MemberInfoDTO memberInfoDTO);*/
 
 
 }
