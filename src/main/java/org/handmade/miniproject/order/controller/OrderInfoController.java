@@ -10,6 +10,8 @@ import org.handmade.miniproject.order.service.OrderInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +33,10 @@ public class OrderInfoController {
 
     // 장바구니 리스트 조회
     @GetMapping("/cartlist?user={username}")
-    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> cartList(OrderInfoListRequestDTO orderInfoListReqeustDTO) {
+    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> cartList(OrderInfoListRequestDTO orderInfoListReqeustDTO, Principal principal) {
+        // username을 받아옴, db가 오고가는 서버는 localhost:8080 이고 화면으로 출력하는 것은 locathost:3000이라
+        // 여기서 username을 받아줘야함
+        orderInfoListReqeustDTO.setUsername(principal.getName());
         return ResponseEntity.ok(orderInfoService.getCartList(orderInfoListReqeustDTO));
     }
 
@@ -55,7 +60,8 @@ public class OrderInfoController {
 
     // 주문 내역 리스트 조회
     @GetMapping("/orderlist?user={username}")
-    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> orderList(OrderInfoListRequestDTO orderInfoListRequestDTO) {
+    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> orderList(OrderInfoListRequestDTO orderInfoListRequestDTO, Principal principal) {
+        orderInfoListRequestDTO.setUsername(principal.getName());
         return ResponseEntity.ok(orderInfoService.getOrderList(orderInfoListRequestDTO));
     }
 

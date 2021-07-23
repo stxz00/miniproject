@@ -13,14 +13,14 @@ public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long> {
     @Query("select o.ono, p.pname, p.price from OrderInfo o " +
             "left join o.product p left join o.memberInfo m " +
             "where o.ono>0 and o.payment = true and m.username =:username " +
-            "group by o.ono order by o.ono")
+            "group by o.ono order by o.ono desc")
     Page<Object[]> getOrderList(Pageable pageable, @Param("username") String username);
 
     // 해당 회원의 장바구니 조회
     @Query("select o.ono, p.pname, p.price from OrderInfo o " +
             "left join o.product p left join o.memberInfo m " +
             "where o.ono>0 and o.payment = false and m.username = :username " +
-            "group by o.ono order by o.ono")
+            "group by o.ono order by o.ono desc")
     Page<Object[]> getCartList(Pageable pageable, @Param("username") String username);
 
     @EntityGraph(attributePaths = {"product", "memberInfo", "product.category"}, type = EntityGraph.EntityGraphType.FETCH)
