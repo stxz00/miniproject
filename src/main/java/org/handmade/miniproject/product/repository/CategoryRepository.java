@@ -19,4 +19,7 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
             "where ci.main = true and c.cno > 0 group by c")
     Page<Object[]> getMainList(Pageable pageable);
 
+    @Query("select c  from Category c where c.cname= :cname")
+    Category findByCategory(String cname);
+
 }

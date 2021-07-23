@@ -3,29 +3,39 @@ package org.handmade.miniproject.product.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
-import org.handmade.miniproject.product.dto.category.CategoryDTO;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
-import org.handmade.miniproject.product.dto.qna.QnaListRequestDTO;
-import org.handmade.miniproject.product.service.CategoryService;
 import org.handmade.miniproject.product.service.ProductService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @CrossOrigin(origins = "*")
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/products")
-public class ProductController {
+@RequestMapping("/sellers/product")
+public class SellerProductController {
 
     private final ProductService productService;
 
+    @PostMapping("/ss")
+    public ResponseEntity<String> register(Principal principal){
+        System.out.println(principal);
+        System.out.println(principal.getName());
+
+        return ResponseEntity.ok(principal.getName());
+    }
+
     //상품 등록과 함께 디렉터리에 업로드한 이미지 파일 연결 및 DB 저장
     @PostMapping("/register")
-    public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO){
+    public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO/*, Principal principal*/){
+        //productDTO.setUsername(principal.getName());
+        productDTO.setUsername("dlgoska00");
         log.info(productDTO);
         return ResponseEntity.ok(productService.register(productDTO));
     }
