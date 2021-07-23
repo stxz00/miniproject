@@ -67,15 +67,16 @@ public interface ProductService {
     //상품 dto 를 엔티티로 변환. 카테고리는 dto 의 getCno 및 findById 를 통해 가져오기
    default Product dtoToEntity(ProductDTO dto, Category category, MemberInfo memberInfo){
         Set<UploadImage> imageSet = new HashSet<>();
-        for (UploadImageDTO uploadImageDTO : dto.getImageList()) {
-            UploadImage build = UploadImage.builder()
-                    .uuid(uploadImageDTO.getUuid())
-                    .fileName(uploadImageDTO.getFileName())
-                    .main(uploadImageDTO.isMain())
-                    .build();
-            imageSet.add(build);
+        if(dto.getImageList() != null) {
+            for (UploadImageDTO uploadImageDTO : dto.getImageList()) {
+                UploadImage build = UploadImage.builder()
+                        .uuid(uploadImageDTO.getUuid())
+                        .fileName(uploadImageDTO.getFileName())
+                        .main(uploadImageDTO.isMain())
+                        .build();
+                imageSet.add(build);
+            }
         }
-
 
         return Product.builder()
                 .pno(dto.getPno())

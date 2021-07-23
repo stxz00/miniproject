@@ -5,7 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -20,12 +23,19 @@ public class SignController {
         return "signin";
     }
 
+    @ResponseBody
     @GetMapping("/main")
-    public String main(Principal principal){
+    public String main(Principal principal, HttpServletRequest request) throws Exception{
         log.info("메인페이지로");
         System.out.println(principal.getName());
-        return "redirect:http://localhost:3000";
+
+        HttpSession session =request.getSession();
+        session.setAttribute("username",principal.getName());
+
+        String username = (String) session.getAttribute("username");
+        return username; //"redirect:http://localhost:3000";
     }
+
 
 
 

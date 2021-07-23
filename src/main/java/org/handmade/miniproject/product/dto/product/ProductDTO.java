@@ -40,7 +40,7 @@ public class ProductDTO {
 
     private Long cno;
 
-
+    private String cname;
 
 
 }

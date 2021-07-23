@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService{
         log.info(productDTO);
 
         //Entity 로 변경
-        Product entity = dtoToEntity(productDTO,categoryRepository.findById(productDTO.getCno()).get(),memberInfoRepository.findById(productDTO.getUsername()).get());
+        Product entity = dtoToEntity(productDTO,categoryRepository.findByCategory(productDTO.getCname()),memberInfoRepository.findById(productDTO.getUsername()).get());
 
         log.info("========================================================");
         log.info(entity);

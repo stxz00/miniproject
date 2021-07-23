@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/**").permitAll()
                 //.antMatchers("/login**", "/web-resources/**", "/products/**,/qnas/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/seller/**").hasAnyRole("ADMIN","SELLER")
+                //.antMatchers("/sellers/**").hasAnyRole("ADMIN","SELLER")
                 .antMatchers("/order/**").hasAnyRole("ADMIN","SELLER","CUSTOMER")
                 .anyRequest().permitAll()
                 .and()
@@ -67,11 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //로그아웃 경로
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("http://localhost:3030")
-                .permitAll()
-                .and()
+                .permitAll()*/
+                //.and()
                 //권한 접근 불가 시 이동 페이지
-                .exceptionHandling()
-                .accessDeniedPage("https://naver.com");*/
+                //.exceptionHandling()
+                //.accessDeniedPage("/login");
     }
 
     @Autowired
