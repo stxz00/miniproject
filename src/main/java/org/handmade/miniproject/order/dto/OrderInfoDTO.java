@@ -19,6 +19,7 @@ public class OrderInfoDTO {
     private int price;      // 상품 가격
 
     // 주문자의 정보
+    private String username;    // 주문자 아이디
     private String mName;   // 주문자 이름
     private String mZipcode;    // 주문자 우편번호
     private String mAddress1;   // 주문자 주소

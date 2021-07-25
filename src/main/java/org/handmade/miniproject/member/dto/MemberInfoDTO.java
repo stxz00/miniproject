@@ -1,12 +1,8 @@
 package org.handmade.miniproject.member.dto;
 
 import lombok.*;
-import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
-import org.handmade.miniproject.member.entity.Role;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Builder
@@ -19,7 +15,7 @@ public class MemberInfoDTO {
     private String username;
 
     //패스워드
-    private String password;
+    private String userPwd;
 
     //닉네임
     private String nickname;
@@ -48,21 +44,14 @@ public class MemberInfoDTO {
     //사업자 번호
     private String brno;
 
-// TODO: 2021-07-13 프로필 사진은 한 장? 여러 장? 확인 후 하기 선언 수정
-//    //프로필 사진
-
-    private List<UploadImageDTO> imageList;
-
     //가입 일자
     private LocalDateTime regDate;
 
     //회원 정보 수정 일자
     private LocalDateTime modDate;
 
-    //탈퇴 여부 => false(0)가 탈퇴
-    private boolean enabled;
-
-    private List<Role> roles = new ArrayList<Role>();
+    //탈퇴 여부
+    private boolean mdel;
 
 
 }

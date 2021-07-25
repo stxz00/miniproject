@@ -1,6 +1,5 @@
 package org.handmade.miniproject.order.service;
 
-import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -79,8 +79,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     @Override
+    @Transactional
     public OrderInfoDTO getListDetail(Long ono) {
-        return entityToDTO(orderInfoRepository.findById(ono).get());
+        return entityToDTO(orderInfoRepository.getById(ono));
     }
 
     @Override
@@ -92,7 +93,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public Long payOrder(OrderInfoDTO orderInfoDTO) {
 
-        Optional<OrderInfo> result = orderInfoRepository.findById(orderInfoDTO.getOno());
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(orderInfoDTO.getOno()));
 
         if(result.isPresent()){
 
@@ -140,7 +141,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public OrderInfoDTO modifyOrder(OrderInfoDTO orderInfoDTO) {
-        Optional<OrderInfo> result = orderInfoRepository.findById(orderInfoDTO.getOno());
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(orderInfoDTO.getOno()));
 
         if(result.isPresent()){
             OrderInfo entity = result.get();
@@ -161,7 +162,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public Long deleteOrder(Long ono) {
-        Optional<OrderInfo> result = orderInfoRepository.findById(ono);
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(ono));
 
         if(result.isPresent()){
             OrderInfo entity = result.get();
