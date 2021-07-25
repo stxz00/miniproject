@@ -7,6 +7,8 @@ import org.handmade.miniproject.member.service.MemberInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @CrossOrigin(origins = "*")
 @RestController
 @Log4j2
@@ -64,8 +66,8 @@ public class MemberInfoController {
     }
 
     //회원 정보 조회
-    @GetMapping("/info?user={username}")
-    public ResponseEntity<MemberInfoDTO> getMemberInfo(@RequestBody String username){
+    @GetMapping("/info")
+    public ResponseEntity<MemberInfoDTO> getMemberInfo(String username){
 
         MemberInfoDTO memberInfoDTO = memberInfoService.getMemberInfo(username);
 
