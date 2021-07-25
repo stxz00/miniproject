@@ -3,6 +3,7 @@ package org.handmade.miniproject.member;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.member.dto.MemberInfoDTO;
 import org.handmade.miniproject.member.entity.MemberInfo;
+import org.handmade.miniproject.member.entity.MemberRole;
 import org.handmade.miniproject.member.repository.MemberInfoRepository;
 import org.handmade.miniproject.member.service.MemberInfoService;
 import org.junit.jupiter.api.Test;
@@ -24,13 +25,12 @@ public class MemberInfoRepoTests {
     PasswordEncoder passwordEncoder;
 
     @Test
-    public void testInsertCustomer() {
+    public void testInsert() {
 
-        String password = passwordEncoder.encode("1111");
-        IntStream.rangeClosed(1, 100).forEach(i -> {
+        IntStream.rangeClosed(1, 20).forEach(i -> {
             MemberInfo memberInfo = MemberInfo.builder()
                     .username("user"+i+"@aaa.com")
-                    .password(password)
+                    .userPwd("asdf1234"+i)
                     .nickname("닉네임"+i)
                     .mname("이름"+i)
                     .mzipcode("13485")
@@ -42,6 +42,10 @@ public class MemberInfoRepoTests {
                     .brno("1234567890")
                     .enabled(false)
                     .build();
+
+            if(i>=80)   memberInfo.addMemberRole(MemberRole.ADMIN);
+            else if(i<80)    memberInfo.addMemberRole(MemberRole.SELLER);
+            else if(i<60) memberInfo.addMemberRole(MemberRole.CUSTOMER);
 
             memberInfoRepository.save(memberInfo);
 

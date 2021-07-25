@@ -8,8 +8,6 @@ import org.handmade.miniproject.order.dto.OrderInfoListRequestDTO;
 import org.handmade.miniproject.order.entity.OrderInfo;
 import org.handmade.miniproject.product.entity.Product;
 
-import java.util.List;
-
 public interface OrderInfoService {
     Long register(OrderInfoDTO orderInfoDTO);
     ListResponseDTO<ListOrderInfoDTO> getCartList(OrderInfoListRequestDTO orderInfoListRequestDTO);
@@ -25,8 +23,8 @@ public interface OrderInfoService {
 
         return ListOrderInfoDTO.builder()
                 .ono((Long) arr[0])
-                .pname((String) arr[2])
-                .price((int) arr[3])
+                .pname((String) arr[1])
+                .price((int) arr[2])
                 .build();
 
     }

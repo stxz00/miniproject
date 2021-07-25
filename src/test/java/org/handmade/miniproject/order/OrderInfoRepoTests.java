@@ -2,6 +2,8 @@ package org.handmade.miniproject.order;
 
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.member.entity.MemberInfo;
+import org.handmade.miniproject.order.dto.ListOrderInfoDTO;
+import org.handmade.miniproject.order.dto.OrderInfoDTO;
 import org.handmade.miniproject.order.entity.OrderInfo;
 import org.handmade.miniproject.order.repository.OrderInfoRepository;
 import org.handmade.miniproject.order.service.OrderInfoService;
@@ -9,7 +11,15 @@ import org.handmade.miniproject.product.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -84,17 +94,97 @@ public class OrderInfoRepoTests {
     }
 
     // 장바구니 리스트 조회
+    @Test
+    public void getCartList() {
+        String username = "user1@aaa.com";
 
-    // 장바구니 1개 조회
+        Pageable pageable = PageRequest.of(0, 10);
+
+        log.info(username);
+
+        Page<Object[]> result = orderInfoRepository
+                .getCartList(pageable, username);
+
+        List<ListOrderInfoDTO> cartListDTO =
+            result.getContent()
+                    .stream()
+                    .map(arr-> orderInfoService.arrToDTO(arr))
+                    .collect(Collectors.toList());
+
+        result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
+    }
 
     // 장바구니에서 주문 수정
 
     // 주문 리스트 조회
+    @Test
+    public void getOrderList() {
+        String username = "user1@aaa.com";
+
+        Pageable pageable = PageRequest.of(0, 10);
+
+        log.info(username);
+
+        Page<Object[]> result = orderInfoRepository
+                .getOrderList(pageable, username);
+
+        List<ListOrderInfoDTO> cartListDTO =
+                result.getContent()
+                        .stream()
+                        .map(arr-> orderInfoService.arrToDTO(arr))
+                        .collect(Collectors.toList());
+
+        result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
+    }
 
     // 주문 1개 조회
+    @Test
+//    @Transactional
+    public void getListDetail() {
+        Long ono = 1L;
 
-    // 결제 완료 상태로 변경
+        OrderInfo entity = orderInfoRepository.getById(ono);
+
+        log.info(entity);
+
+        OrderInfoDTO dto = orderInfoService.entityToDTO(entity);
+
+        log.info(dto);
+    }
+
+    // 장바구니에서 삭제
+    @Test
+    public void deleteCart() {
+        Long ono = 101L;
+
+        orderInfoRepository.deleteById(ono);
+
+    }
 
     // 주문 취소 상태로 변경
+    @Test
+    @Transactional
+    public void deleteOrder() {
+        Optional<OrderInfo> result = Optional.ofNullable(orderInfoRepository.getById(100L));
+        log.info(result);
+        log.info("==================================");
+
+        if(result.isPresent()){
+            OrderInfo entity = result.get();
+            log.info(entity);
+            log.info("==================================");
+
+            // 주문 현황에서 '주문 취소' 상태로 만들어 주어야 하므로 del을 true로 변경해줌
+            entity.changeDel(false);
+
+            orderInfoRepository.save(entity);
+
+            OrderInfo fin = orderInfoRepository.findById(entity.getOno()).get();
+
+            log.info(fin);
+            log.info("==================================");
+
+        }
+    }
 
 }
