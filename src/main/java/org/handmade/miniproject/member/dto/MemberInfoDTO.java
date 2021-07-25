@@ -1,8 +1,11 @@
 package org.handmade.miniproject.member.dto;
 
 import lombok.*;
+import org.handmade.miniproject.member.entity.Role;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,7 +18,7 @@ public class MemberInfoDTO {
     private String username;
 
     //패스워드
-    private String userPwd;
+    private String password;
 
     //닉네임
     private String nickname;
@@ -51,7 +54,8 @@ public class MemberInfoDTO {
     private LocalDateTime modDate;
 
     //탈퇴 여부
-    private boolean mdel;
+    private boolean enabled;
 
+    private List<Role> roles = new ArrayList<Role>();
 
 }
