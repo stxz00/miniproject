@@ -87,7 +87,7 @@ public class ReviewServiceImpl implements ReviewService{
 
         PageMaker pageMaker = new PageMaker(1,10, (int) result.getTotalElements());
         pageMaker.makePageList(pageable);
-        
+
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
 
         return ListResponseDTO.<ListReviewDTO>builder()
