@@ -7,6 +7,7 @@ import org.handmade.miniproject.product.dto.category.CategoryDTO;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
+import org.handmade.miniproject.product.dto.qna.QnaListRequestDTO;
 import org.handmade.miniproject.product.service.CategoryService;
 import org.handmade.miniproject.product.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +31,13 @@ public class ProductController {
 
     //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(@PathVariable ProductListRequestDTO requestDTO){
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(String type,String keyword,int page){
         log.info("------------------------------");
-        log.info(requestDTO);
+        System.out.println(page);
+        ProductListRequestDTO requestDTO = new ProductListRequestDTO();
+        requestDTO.setType(type);
+        requestDTO.setKeyword(keyword);
+        requestDTO.setPage(page);
         return ResponseEntity.ok(productService.getList(requestDTO));
     }
 

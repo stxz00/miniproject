@@ -9,6 +9,7 @@ import org.handmade.miniproject.product.dto.Favorite.ListFavoriteDTO;
 import org.handmade.miniproject.product.dto.qna.ListQnaDTO;
 import org.handmade.miniproject.product.dto.qna.QnaDTO;
 import org.handmade.miniproject.product.dto.qna.QnaListRequestDTO;
+import org.handmade.miniproject.product.dto.review.ReviewListRequestDTO;
 import org.handmade.miniproject.product.entity.Qna;
 import org.handmade.miniproject.product.service.QnaService;
 import org.springframework.http.ResponseEntity;
@@ -52,9 +53,12 @@ public class QnaController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListQnaDTO>> list(@RequestBody QnaListRequestDTO requestDTO){
-        log.info("------------------------------");
-        log.info(requestDTO);
+    public ResponseEntity<ListResponseDTO<ListQnaDTO>> list(String pno,int page){
+        System.out.println(page);
+        System.out.println("=======================pno=" + pno);
+        QnaListRequestDTO requestDTO = new QnaListRequestDTO();
+        requestDTO.setKeyword(pno);
+        requestDTO.setPage(page);
         return ResponseEntity.ok(qnaService.getList(requestDTO));
     }
 

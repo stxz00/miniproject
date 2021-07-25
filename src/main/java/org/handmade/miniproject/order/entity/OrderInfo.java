@@ -5,7 +5,6 @@ import org.handmade.miniproject.common.entity.BaseEntity;
 import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.product.entity.Product;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -15,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"product","memberInfo"})
 public class OrderInfo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

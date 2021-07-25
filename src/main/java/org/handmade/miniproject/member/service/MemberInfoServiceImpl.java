@@ -24,13 +24,20 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 
         MemberInfo entity = dtoToEntity(memberInfoDTO);
 
-        log.info("==============================");
-        log.info(entity);
+        //중복 닉네임이 없을 때 등록
+        if(memberInfoRepository.findById(entity.getUsername()).isEmpty()) {
 
-        MemberInfo result = memberInfoRepository.save(entity);
+            log.info("==============================");
+            log.info(entity);
 
-        //등록시 가입한 유저의 ID(이메일) 반환
-        return result.getUsername();
+            MemberInfo result = memberInfoRepository.save(entity);
+
+            //등록시 가입한 유저의 ID(이메일) 반환
+            return result.getUsername();
+        }
+
+        return null;
+
     }
 
     //회원 정보 출력
