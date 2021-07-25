@@ -9,6 +9,7 @@ import org.handmade.miniproject.member.service.MemberInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -20,6 +21,8 @@ public class MemberInfoRepoTests {
     private MemberInfoRepository memberInfoRepository;
     @Autowired
     private MemberInfoService memberInfoService;
+
+    PasswordEncoder passwordEncoder;
 
     @Test
     public void testInsert() {
@@ -37,7 +40,7 @@ public class MemberInfoRepoTests {
                     .mtel2("1234")
                     .mtel3("5678")
                     .brno("1234567890")
-                    .mdel(false)
+                    .enabled(false)
                     .build();
 
             if(i>=80)   memberInfo.addMemberRole(MemberRole.ADMIN);
@@ -78,4 +81,28 @@ public class MemberInfoRepoTests {
 
     }
 
+    @Test
+    public void testInsertOneCustomer() {
+        String password = passwordEncoder.encode("1234");
+        IntStream.rangeClosed(1, 1).forEach(i -> {
+            MemberInfo memberInfo = MemberInfo.builder()
+                    .username("dlgoska00@gmail.com")
+                    .password(password)
+                    .nickname("닉네임")
+                    .mname("이름")
+                    .mzipcode("13485")
+                    .maddress1("주소")
+                    .maddress2("상세주소")
+                    .mtel1("010")
+                    .mtel2("1234")
+                    .mtel3("5678")
+                    .brno("1234567890")
+                    .enabled(false)
+                    .build();
+
+            memberInfoRepository.save(memberInfo);
+
+        });
+
+    }
 }

@@ -136,6 +136,31 @@ public class ProductServiceImpl implements ProductService{
                 .build();
     }
 
+    @Override
+    public ListResponseDTO<ListProductDTO> getSellerProductList(ProductListRequestDTO productListRequestDTO) {
+
+        Pageable pageable =
+                PageRequest.of( (productListRequestDTO.getPage()<=0 ? 0 : productListRequestDTO.getPage()) -1, 1000);
+        Page<Object[]> result =productRepository
+                .getSearchList(productListRequestDTO.getType(), productListRequestDTO.getKeyword(),productListRequestDTO.getCname(), pageable);
+
+        List<ListProductDTO> boardDToList =
+                result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());
+
+        PageMaker pageMaker = new PageMaker(1,10000, (int) result.getTotalElements());
+        pageMaker.makePageList(pageable);
+
+        result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
+
+        return ListResponseDTO.<ListProductDTO>builder()
+                .dtoList(boardDToList)
+                .pageMaker(pageMaker)
+                .listRequestDTO(productListRequestDTO)
+                .page(pageMaker.getPage())
+                .start(pageMaker.getStart())
+                .end(pageMaker.getEnd())
+                .build();
+    }
 
 
 }

@@ -42,21 +42,16 @@ public class SellerProductController {
 
     //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(int page, String cname, String type,String keyword ){
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(/*Principal principal*/){
         log.info("------------------------------");
-        log.info("페이지"+page);
-        log.info("cname= "+ cname.equals("undefined"));
-        log.info("카테고리= "+ cname);
-        log.info("키워드"+keyword);
-        log.info("타입",type);
+
 
         ProductListRequestDTO requestDTO = new ProductListRequestDTO();
-        requestDTO.setType(type);
-        requestDTO.setKeyword(keyword);
-        requestDTO.setPage(page);
-        requestDTO.setCname(cname);
+        requestDTO.setType("w");
+        requestDTO.setKeyword("dlgoska00");
+        requestDTO.setPage(1);
         log.info("dssdsddsfuhsdufsdjfdsjfidfds");
-        return ResponseEntity.ok(productService.getList(requestDTO));
+        return ResponseEntity.ok(productService.getSellerProductList(requestDTO));
     }
 
     /*//상품 통합검색 및 검색 조건별 검색
