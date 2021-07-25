@@ -19,6 +19,8 @@ public interface ProductService {
 
     ListResponseDTO<ListProductDTO> getList(ProductListRequestDTO productListRequestDTO);
 
+    ListResponseDTO<ListProductDTO> getSellerProductList(ProductListRequestDTO productListRequestDTO);
+
     Long register(ProductDTO productDTO);
 
     Long delete(Long pno);
