@@ -56,7 +56,7 @@ public class MemberInfoController {
     }
 
     //회원 정보 수정
-    @PutMapping("/modify?user={username}")
+    @PutMapping("/modify")
     public ResponseEntity<String> modifyMemberInfo(@RequestBody MemberInfoDTO dto) {
         log.info(dto);
 
@@ -64,6 +64,7 @@ public class MemberInfoController {
 
         return ResponseEntity.ok(username);
     }
+
 
     //회원 정보 조회
     @GetMapping("/info")
@@ -75,8 +76,8 @@ public class MemberInfoController {
     }
 
     //회원 탈퇴(del 변경)
-    @PutMapping("/delete?user={username}")
-    public ResponseEntity<String> delMemberInfo(@RequestBody String username) {
+    @PutMapping("/delete")
+    public ResponseEntity<String> delMemberInfo(String username) {
 
         String deleteRes = memberInfoService.deleteMemberInfo(username);
 

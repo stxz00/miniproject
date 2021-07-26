@@ -74,6 +74,7 @@ public class OrderInfoRepoTests {
 
             log.info("======================");
             log.info("pno: "+pno);
+            log.info("mno: "+mno);
 
             OrderInfo orderInfo = OrderInfo.builder()
                     .oName("수취인"+i)
@@ -141,7 +142,7 @@ public class OrderInfoRepoTests {
     @Test
 //    @Transactional
     public void getListDetail() {
-        Long ono = 1L;
+        Long ono = 43L;
 
         OrderInfo entity = orderInfoRepository.getById(ono);
 
