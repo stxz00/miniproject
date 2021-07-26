@@ -63,7 +63,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
         //log.info(pno);
         ProductDTO dto = productService.read(pno);
-        dto.setUsername(productService.username(pno));
+        dto.setUsername(productService.nickname(pno));
         return ResponseEntity.ok(dto);
     }
 

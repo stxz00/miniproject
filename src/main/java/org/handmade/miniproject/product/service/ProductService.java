@@ -31,7 +31,7 @@ public interface ProductService {
 
     Long modifyDel(Long pno);
 
-    String username(Long pno);
+    String nickname(Long pno);
 
     // 상품리스트 DTO 로 변환
     default ListProductDTO arrToDTO(Object[] arr){

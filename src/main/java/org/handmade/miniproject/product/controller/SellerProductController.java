@@ -60,7 +60,9 @@ public class SellerProductController {
     @GetMapping("/{pno}")
     public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
         //log.info(pno);
-        return ResponseEntity.ok(productService.read(pno));
+        ProductDTO dto = productService.read(pno);
+        dto.setUsername(productService.nickname(pno));
+        return ResponseEntity.ok(dto);
     }
 
     //상품 한 개 삭제(관리자)
@@ -70,7 +72,7 @@ public class SellerProductController {
         return ResponseEntity.ok(productService.delete(pno));
     }
 
-    //상품 수정 및 삭제 del
+    //상품 수정
     @PutMapping("/{pno}")
     public ResponseEntity<Long> modify(@PathVariable Long pno, @RequestBody ProductDTO productDTO){
         productDTO.setPno(pno);
