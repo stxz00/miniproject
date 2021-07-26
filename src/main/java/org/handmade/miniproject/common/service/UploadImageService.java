@@ -6,6 +6,8 @@ import org.handmade.miniproject.common.entity.UploadImage;
 public interface UploadImageService {
 
     default UploadImage dtoToEntity(UploadImageDTO uploadImageDTO){
+        System.out.println("sssssssssssssssssssss"+uploadImageDTO);
+
         return UploadImage.builder()
                 .uuid(uploadImageDTO.getUuid())
                 .fileName(uploadImageDTO.getFileName())

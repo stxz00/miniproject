@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
 import org.handmade.miniproject.common.dto.PageMaker;
+import org.handmade.miniproject.common.dto.upload.UploadImageDTO;
+import org.handmade.miniproject.common.entity.UploadImage;
 import org.handmade.miniproject.common.service.UploadImageService;
 import org.handmade.miniproject.member.repository.MemberInfoRepository;
 import org.handmade.miniproject.member.service.MemberInfoService;
 import org.handmade.miniproject.product.dto.product.ListProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductDTO;
 import org.handmade.miniproject.product.dto.product.ProductListRequestDTO;
+import org.handmade.miniproject.product.entity.Category;
 import org.handmade.miniproject.product.entity.Product;
 import org.handmade.miniproject.product.repository.CategoryRepository;
 import org.handmade.miniproject.product.repository.ProductRepository;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,6 +75,10 @@ public class ProductServiceImpl implements ProductService{
     //실제 상품 수정 저장
     @Override
     public String modify(ProductDTO productDTO) {
+        log.info(productDTO);
+        log.info(productDTO.getCname());
+        log.info(productDTO.getImageList());
+
         Optional<Product> result = productRepository.findById(productDTO.getPno());
         if(result.isPresent()){
             Product entity = result.get();
@@ -83,22 +91,29 @@ public class ProductServiceImpl implements ProductService{
             //상품 내용 변경
             entity.changePcontent(productDTO.getPcontent());
 
-            //이전 카테고리
-            Long preCno = result.get().getCategory().getCno();
+            /*//이전 카테고리
+            Long preCno = result.get().getCategory().getCno();*/
+
+            Category afterCategory = categoryRepository.findByCategory(productDTO.getCname());
 
             //현재 수정 카테고리
-            Long afterCno = productDTO.getCno();
+            Long afterCno = afterCategory.getCno();
 
             //카테고리가 변경되었는지 확인
-            if(preCno != afterCno){
+            /*if(preCno != afterCno){
                 //변경된 경우 변경한 카테고리의 번호를 조회하여 반영
-                entity.changeCategory(categoryRepository.findById(afterCno).get());
-            }
+                entity.changeCategory(afterCategory);
+            }*/
+            entity.changeCategory(afterCategory);
 
-            entity.changeuploadImages(productDTO.getImageList()
+            entity.addImages(productDTO.getImageList()
                     .stream()
                     .map(uploadImageDTO -> uploadImageService.dtoToEntity(uploadImageDTO))
                     .collect(Collectors.toSet()));
+
+            System.out.println(entity.getUploadImages());
+
+            log.info("엔티티",entity);
 
             //수정본 저장
             productRepository.save(entity);
@@ -107,6 +122,19 @@ public class ProductServiceImpl implements ProductService{
         }
 
         return null;
+    }
+
+    @Override
+    public Long modifyDel(Long pno) {
+        Product product = productRepository.getById(pno);
+        product.changeDel(true);
+        productRepository.save(product);
+        return pno;
+    }
+
+    @Override
+    public String username(Long pno) {
+        return productRepository.getById(pno).getMemberInfo().getUsername();
     }
 
     //상품 통합검색 및 조건별 검색

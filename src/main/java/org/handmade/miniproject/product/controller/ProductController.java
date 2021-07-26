@@ -62,7 +62,9 @@ public class ProductController {
     @GetMapping("/{pno}")
     public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
         //log.info(pno);
-        return ResponseEntity.ok(productService.read(pno));
+        ProductDTO dto = productService.read(pno);
+        dto.setUsername(productService.username(pno));
+        return ResponseEntity.ok(dto);
     }
 
     //상품 한 개 삭제(관리자)
@@ -79,6 +81,7 @@ public class ProductController {
         productService.modify(productDTO);
         return ResponseEntity.ok(productDTO.getPno());
     }
+
 
 
 }
