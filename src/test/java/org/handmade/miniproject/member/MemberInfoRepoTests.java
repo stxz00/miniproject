@@ -27,7 +27,7 @@ public class MemberInfoRepoTests {
     @Test
     public void testInsert() {
 
-        IntStream.rangeClosed(1, 20).forEach(i -> {
+        IntStream.rangeClosed(1, 100).forEach(i -> {
             MemberInfo memberInfo = MemberInfo.builder()
                     .username("user"+i+"@aaa.com")
                     .password("asdf1234"+i)
