@@ -24,7 +24,9 @@ public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long> {
     Page<Object[]> getCartList(Pageable pageable, @Param("username") String username);
 
     @EntityGraph(attributePaths = {"product", "memberInfo", "product.category"}, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select o from OrderInfo o " +
+    @Query("select o, p.pno, p.pname, p.price, " +
+            "m.username, m.mname, m.mzipcode, m.maddress1, m.maddress2, " +
+            "m.mtel1, m.mtel2, m.mtel3 from OrderInfo o " +
             "left join o.product p left join o.memberInfo m " +
             "where o.ono = :ono")
     OrderInfo getById(Long ono);

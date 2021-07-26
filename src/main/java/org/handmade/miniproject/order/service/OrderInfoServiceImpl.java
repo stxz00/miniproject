@@ -56,25 +56,26 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     @Override
-    public ListResponseDTO<ListOrderInfoDTO> getCartList(OrderInfoListRequestDTO orderInfoListRequestDTO) {
+    public ListResponseDTO<ListOrderInfoDTO> getCartList(OrderInfoListRequestDTO listRequestDTO) {
 
         // getCartList를 받아와 페이징 처리
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of((listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 5);
         Page<Object[]> result = orderInfoRepository
-                .getCartList(pageable, orderInfoListRequestDTO.getUsername());
+                .getCartList(pageable, listRequestDTO.getUsername());
 
         //페이징된 결과를 DTO의 리스트 형태로 정렬
         List<ListOrderInfoDTO> cartListDTO =
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());
 
         PageMaker pageMaker = new PageMaker(1, 5, (int)result.getTotalElements());
+        pageMaker.makePageList(pageable);
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
 
         return ListResponseDTO.<ListOrderInfoDTO>builder()
                 .dtoList(cartListDTO)
                 .pageMaker(pageMaker)
-                .listRequestDTO(orderInfoListRequestDTO)
+                .listRequestDTO(listRequestDTO)
                 .build();
     }
 
@@ -119,23 +120,24 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
 
     @Override
-    public ListResponseDTO<ListOrderInfoDTO> getOrderList(OrderInfoListRequestDTO orderInfoListRequestDTO) {
+    public ListResponseDTO<ListOrderInfoDTO> getOrderList(OrderInfoListRequestDTO listRequestDTO) {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of((listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 5);
         Page<Object[]> result = orderInfoRepository
-                .getOrderList(pageable, orderInfoListRequestDTO.getUsername());
+                .getOrderList(pageable, listRequestDTO.getUsername());
 
         List<ListOrderInfoDTO> orderListDTO =
                 result.getContent().stream().map( arr -> arrToDTO(arr) ).collect(Collectors.toList());
 
-        PageMaker pageMaker = new PageMaker(1, 10, (int)result.getTotalElements());
+        PageMaker pageMaker = new PageMaker(1, 5, (int)result.getTotalElements());
+        pageMaker.makePageList(pageable);
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
 
         return ListResponseDTO.<ListOrderInfoDTO>builder()
                 .dtoList(orderListDTO)
                 .pageMaker(pageMaker)
-                .listRequestDTO(orderInfoListRequestDTO)
+                .listRequestDTO(listRequestDTO)
                 .build();
     }
 
