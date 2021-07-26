@@ -26,7 +26,7 @@ public class ProductController {
     //상품 등록과 함께 디렉터리에 업로드한 이미지 파일 연결 및 DB 저장
     @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO){
-        log.info(productDTO);
+        log.info("ssssssssss",productDTO);
         return ResponseEntity.ok(productService.register(productDTO));
     }
 
@@ -45,7 +45,6 @@ public class ProductController {
         requestDTO.setKeyword(keyword);
         requestDTO.setPage(page);
         requestDTO.setCname(cname);
-        log.info("dssdsddsfuhsdufsdjfdsjfidfds");
         return ResponseEntity.ok(productService.getList(requestDTO));
     }
 
@@ -63,7 +62,9 @@ public class ProductController {
     @GetMapping("/{pno}")
     public ResponseEntity<ProductDTO> read(@PathVariable Long pno){
         //log.info(pno);
-        return ResponseEntity.ok(productService.read(pno));
+        ProductDTO dto = productService.read(pno);
+        dto.setUsername(productService.username(pno));
+        return ResponseEntity.ok(dto);
     }
 
     //상품 한 개 삭제(관리자)
@@ -80,6 +81,7 @@ public class ProductController {
         productService.modify(productDTO);
         return ResponseEntity.ok(productDTO.getPno());
     }
+
 
 
 }

@@ -7,6 +7,8 @@ import org.handmade.miniproject.member.service.MemberInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @CrossOrigin(origins = "*")
 @RestController
 @Log4j2

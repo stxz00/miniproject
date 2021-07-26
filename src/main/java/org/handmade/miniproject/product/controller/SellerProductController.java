@@ -23,14 +23,6 @@ public class SellerProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/ss")
-    public ResponseEntity<String> register(Principal principal){
-        System.out.println(principal);
-        System.out.println(principal.getName());
-
-        return ResponseEntity.ok(principal.getName());
-    }
-
     //상품 등록과 함께 디렉터리에 업로드한 이미지 파일 연결 및 DB 저장
     @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO/*, Principal principal*/){
@@ -82,9 +74,14 @@ public class SellerProductController {
     @PutMapping("/{pno}")
     public ResponseEntity<Long> modify(@PathVariable Long pno, @RequestBody ProductDTO productDTO){
         productDTO.setPno(pno);
+        productDTO.setUsername("dlgoska00");
         productService.modify(productDTO);
         return ResponseEntity.ok(productDTO.getPno());
     }
 
+    @PutMapping("/del/{pno}")
+    public ResponseEntity<Long> del(@PathVariable Long pno){
+        return ResponseEntity.ok(productService.modifyDel(pno));
+    }
 
 }
