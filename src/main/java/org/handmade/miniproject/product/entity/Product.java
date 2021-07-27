@@ -76,17 +76,8 @@ public class Product extends BaseEntity {
     }
 
     public void changeuploadImages(Set<UploadImage> uploadImages){
-        System.out.println("기존ㅑㅑㅑㅑㅑㅑㅑㅑㅑ"+this.uploadImages);
         this.uploadImages.clear();
-        /*this.uploadImages = uploadImages;*/
-        System.out.println("야ㅑㅑㅑㅑㅑㅑㅑㅑㅑ"+uploadImages);
-
         this.uploadImages.addAll(uploadImages);
-
-        /*uploadImages.stream().map(uploadImage -> );*/
-
-
-        System.out.println("뭐가 된거지?"+uploadImages);
     }
 
     public void addImages(Set<UploadImage> uploadImages){

@@ -21,8 +21,11 @@ public class FavoriteController {
 
     private final FavoriteService favoriteService;
 
-    @PostMapping("/")
-    public ResponseEntity<Long> register(@RequestBody FavoriteDTO dto){
+    @PostMapping("/{pno}")
+    public ResponseEntity<Long> register(@PathVariable Long pno/*FavoriteDTO dto*/){
+        FavoriteDTO dto = new FavoriteDTO();
+        dto.setPno(pno);
+        dto.setUsername("dlgoska00");
         return ResponseEntity.ok(favoriteService.register(dto));
     }
 

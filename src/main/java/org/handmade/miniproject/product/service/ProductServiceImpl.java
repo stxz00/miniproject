@@ -133,8 +133,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public String username(Long pno) {
-        return productRepository.getById(pno).getMemberInfo().getUsername();
+    public String nickname(Long pno) {
+        return productRepository.getById(pno).getMemberInfo().getMname();
     }
 
     //상품 통합검색 및 조건별 검색
