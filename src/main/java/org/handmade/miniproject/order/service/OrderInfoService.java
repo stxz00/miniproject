@@ -9,7 +9,7 @@ import org.handmade.miniproject.order.entity.OrderInfo;
 import org.handmade.miniproject.product.entity.Product;
 
 public interface OrderInfoService {
-    Long register(OrderInfoDTO orderInfoDTO);
+    Long register(Long pno, String username);
     ListResponseDTO<ListOrderInfoDTO> getCartList(OrderInfoListRequestDTO orderInfoListRequestDTO);
     OrderInfoDTO getListDetail(Long ono);       // 장바구니 및 주문현황 리스트에서 선택한 주문 조회
     Long deleteCart(Long ono);
@@ -25,6 +25,9 @@ public interface OrderInfoService {
                 .ono((Long) arr[0])
                 .pname((String) arr[1])
                 .price((int) arr[2])
+                .oName((String)arr[3])
+                .oAddress1((String)arr[4])
+                .oAddress2((String)arr[5])
                 .build();
 
     }
