@@ -69,7 +69,7 @@ public class UploadController {
 
     @ResponseBody
     @PostMapping(value ="/upload", produces = MediaType.APPLICATION_JSON_VALUE) //지금부터 만드는 데이타는 JSON 데이터라고 선언
-    public List<UploadImageDTO> upload(MultipartFile[] files){
+    public List<UploadImageDTO> upload(@RequestPart(value="img", required=true) MultipartFile[] files){
 
         log.warn(path);
 

@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "category")
+@ToString
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +76,24 @@ public class Product extends BaseEntity {
     }
 
     public void changeuploadImages(Set<UploadImage> uploadImages){
-        this.uploadImages = uploadImages;
+        System.out.println("기존ㅑㅑㅑㅑㅑㅑㅑㅑㅑ"+this.uploadImages);
+        this.uploadImages.clear();
+        /*this.uploadImages = uploadImages;*/
+        System.out.println("야ㅑㅑㅑㅑㅑㅑㅑㅑㅑ"+uploadImages);
+
+        this.uploadImages.addAll(uploadImages);
+
+        /*uploadImages.stream().map(uploadImage -> );*/
+
+
+        System.out.println("뭐가 된거지?"+uploadImages);
     }
+
+    public void addImages(Set<UploadImage> uploadImages){
+        uploadImages.addAll(this.uploadImages);
+        this.uploadImages.addAll(uploadImages);
+    }
+
+
+
 }

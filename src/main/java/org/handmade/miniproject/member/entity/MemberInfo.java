@@ -1,5 +1,6 @@
 package org.handmade.miniproject.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.handmade.miniproject.common.entity.BaseEntity;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "role")
 public class MemberInfo extends BaseEntity {
     @Id
     //아이디(이메일)
@@ -73,6 +74,7 @@ public class MemberInfo extends BaseEntity {
         this.enabled = enabled;
     }
 
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "memberRole",
@@ -83,8 +85,8 @@ public class MemberInfo extends BaseEntity {
    /* @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> memberRoleSet = new HashSet<>();
-
-    public void addMemberRole(MemberRole role){
-        memberRoleSet.add(role);
-    }*/
+    */
+    public void addMemberRole(Role role){
+        roles.add(role);
+    }
 }

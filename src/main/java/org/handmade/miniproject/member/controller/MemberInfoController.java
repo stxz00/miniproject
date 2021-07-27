@@ -7,6 +7,8 @@ import org.handmade.miniproject.member.service.MemberInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @CrossOrigin(origins = "*")
 @RestController
 @Log4j2
@@ -54,7 +56,7 @@ public class MemberInfoController {
     }
 
     //회원 정보 수정
-    @PutMapping("/modify?user={username}")
+    @PutMapping("/modify")
     public ResponseEntity<String> modifyMemberInfo(@RequestBody MemberInfoDTO dto) {
         log.info(dto);
 
@@ -63,9 +65,10 @@ public class MemberInfoController {
         return ResponseEntity.ok(username);
     }
 
+
     //회원 정보 조회
-    @GetMapping("/info?user={username}")
-    public ResponseEntity<MemberInfoDTO> getMemberInfo(@RequestBody String username){
+    @GetMapping("/info")
+    public ResponseEntity<MemberInfoDTO> getMemberInfo(String username){
 
         MemberInfoDTO memberInfoDTO = memberInfoService.getMemberInfo(username);
 
@@ -73,8 +76,8 @@ public class MemberInfoController {
     }
 
     //회원 탈퇴(del 변경)
-    @PutMapping("/delete?user={username}")
-    public ResponseEntity<String> delMemberInfo(@RequestBody String username) {
+    @PutMapping("/delete")
+    public ResponseEntity<String> delMemberInfo(String username) {
 
         String deleteRes = memberInfoService.deleteMemberInfo(username);
 

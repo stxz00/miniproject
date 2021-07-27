@@ -1,5 +1,6 @@
 package org.handmade.miniproject.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "memberInfo")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +21,7 @@ public class Role {
     //권한이름
     private String authority;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "roles")
     private List<MemberInfo> memberInfos;
 }

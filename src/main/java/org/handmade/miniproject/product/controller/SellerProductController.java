@@ -23,14 +23,6 @@ public class SellerProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/ss")
-    public ResponseEntity<String> register(Principal principal){
-        System.out.println(principal);
-        System.out.println(principal.getName());
-
-        return ResponseEntity.ok(principal.getName());
-    }
-
     //상품 등록과 함께 디렉터리에 업로드한 이미지 파일 연결 및 DB 저장
     @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody ProductDTO productDTO/*, Principal principal*/){
@@ -42,21 +34,16 @@ public class SellerProductController {
 
     //상품 통합검색 및 검색 조건별 검색
     @GetMapping("/list")
-    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(int page, String cname, String type,String keyword ){
+    public ResponseEntity<ListResponseDTO<ListProductDTO>> list(/*Principal principal*/){
         log.info("------------------------------");
-        log.info("페이지"+page);
-        log.info("cname= "+ cname.equals("undefined"));
-        log.info("카테고리= "+ cname);
-        log.info("키워드"+keyword);
-        log.info("타입",type);
+
 
         ProductListRequestDTO requestDTO = new ProductListRequestDTO();
-        requestDTO.setType(type);
-        requestDTO.setKeyword(keyword);
-        requestDTO.setPage(page);
-        requestDTO.setCname(cname);
+        requestDTO.setType("w");
+        requestDTO.setKeyword("dlgoska00");
+        requestDTO.setPage(1);
         log.info("dssdsddsfuhsdufsdjfdsjfidfds");
-        return ResponseEntity.ok(productService.getList(requestDTO));
+        return ResponseEntity.ok(productService.getSellerProductList(requestDTO));
     }
 
     /*//상품 통합검색 및 검색 조건별 검색
@@ -87,9 +74,14 @@ public class SellerProductController {
     @PutMapping("/{pno}")
     public ResponseEntity<Long> modify(@PathVariable Long pno, @RequestBody ProductDTO productDTO){
         productDTO.setPno(pno);
+        productDTO.setUsername("dlgoska00");
         productService.modify(productDTO);
         return ResponseEntity.ok(productDTO.getPno());
     }
 
+    @PutMapping("/del/{pno}")
+    public ResponseEntity<Long> del(@PathVariable Long pno){
+        return ResponseEntity.ok(productService.modifyDel(pno));
+    }
 
 }
