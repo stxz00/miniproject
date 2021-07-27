@@ -1,5 +1,6 @@
 package org.handmade.miniproject.order.service;
 
+import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
@@ -34,9 +35,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private final ProductRepository productRepository;
 
     @Override
-    public Long register(OrderInfoDTO orderInfoDTO) {
+    public Long register(Long pno, String username) {
 
-        Product pEntity = productRepository.findById(orderInfoDTO.getPno()).get();
+       /* Product pEntity = productRepository.findById(orderInfoDTO.getPno()).get();
         MemberInfo mEntity = memberInfoRepository.findById(orderInfoDTO.getOName()).get();
 
         log.info(orderInfoDTO);
@@ -46,7 +47,32 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         OrderInfo entity = dtoToEntity(orderInfoDTO, pEntity, mEntity);
 
         log.info("========================================================");
-        log.info(entity);
+        log.info(entity);*/
+
+        Product pEntity = productRepository.findById(pno).get();
+
+        MemberInfo mEntity = memberInfoRepository.findById(username).get();
+
+        OrderInfoDTO dto = new OrderInfoDTO();
+
+        dto.setPname(pEntity.getPname());
+        dto.setPrice(pEntity.getPrice());
+        dto.setUsername(mEntity.getUsername());
+        dto.setMZipcode(mEntity.getMzipcode());
+        dto.setMAddress1(mEntity.getMaddress1());
+        dto.setMAddress2(mEntity.getMaddress2());
+        dto.setMTel1(mEntity.getMtel1());
+        dto.setMTel2(mEntity.getMtel2());
+        dto.setMTel3(mEntity.getMtel3());
+        dto.setOName(mEntity.getUsername());
+        dto.setOZipcode(mEntity.getMzipcode());
+        dto.setOAddress1(mEntity.getMaddress1());
+        dto.setOAddress2(mEntity.getMaddress2());
+        dto.setOTel1(mEntity.getMtel1());
+        dto.setOTel2(mEntity.getMtel2());
+        dto.setOTel3(mEntity.getMtel3());
+
+        OrderInfo entity = dtoToEntity(dto,pEntity,mEntity);
 
         // 주문 등록
         OrderInfo result = orderInfoRepository.save(entity);
@@ -59,7 +85,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     public ListResponseDTO<ListOrderInfoDTO> getCartList(OrderInfoListRequestDTO listRequestDTO) {
 
         // getCartList를 받아와 페이징 처리
-        Pageable pageable = PageRequest.of((listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 5);
+        Pageable pageable = PageRequest.of((listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 10000);
         Page<Object[]> result = orderInfoRepository
                 .getCartList(pageable, listRequestDTO.getUsername());
 
@@ -67,10 +93,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         List<ListOrderInfoDTO> cartListDTO =
                 result.getContent().stream().map(arr -> arrToDTO(arr)).collect(Collectors.toList());
 
-        PageMaker pageMaker = new PageMaker(1, 5, (int)result.getTotalElements());
+        PageMaker pageMaker = new PageMaker(1, 10000, (int)result.getTotalElements());
         pageMaker.makePageList(pageable);
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
+
+        System.out.println(cartListDTO.get(0));
 
         return ListResponseDTO.<ListOrderInfoDTO>builder()
                 .dtoList(cartListDTO)
@@ -82,7 +110,17 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     @Transactional
     public OrderInfoDTO getListDetail(Long ono) {
-        return entityToDTO(orderInfoRepository.getById(ono));
+        System.out.println(ono);
+        OrderInfoDTO dto =  entityToDTO(orderInfoRepository.findById(ono).get());
+        MemberInfo mEntity =  memberInfoRepository.findById("dlgoska00").get();
+        dto.setMAddress1(mEntity.getMaddress1());
+        dto.setMAddress2(mEntity.getMaddress2());
+        dto.setMName(mEntity.getMname());
+        dto.setMTel1(mEntity.getMtel1());
+        dto.setMTel2(mEntity.getMtel2());
+        dto.setMTel3(mEntity.getMtel3());
+        dto.setMZipcode(mEntity.getMzipcode());
+        return dto;
     }
 
     @Override
@@ -122,14 +160,13 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public ListResponseDTO<ListOrderInfoDTO> getOrderList(OrderInfoListRequestDTO listRequestDTO) {
 
-        Pageable pageable = PageRequest.of((listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 5);
+        Pageable pageable = PageRequest.of((listRequestDTO.getPage()<=0 ? 0 : listRequestDTO.getPage()) -1, 10000);
         Page<Object[]> result = orderInfoRepository
                 .getOrderList(pageable, listRequestDTO.getUsername());
 
         List<ListOrderInfoDTO> orderListDTO =
                 result.getContent().stream().map( arr -> arrToDTO(arr) ).collect(Collectors.toList());
-
-        PageMaker pageMaker = new PageMaker(1, 5, (int)result.getTotalElements());
+        PageMaker pageMaker = new PageMaker(1, 50000, (int)result.getTotalElements());
         pageMaker.makePageList(pageable);
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));

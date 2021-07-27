@@ -28,6 +28,7 @@ public class QnaController {
 
     @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody QnaDTO dto){
+        dto.setUsername("이해남");
         log.info(dto);
         return ResponseEntity.ok(qnaService.register(dto));
     }

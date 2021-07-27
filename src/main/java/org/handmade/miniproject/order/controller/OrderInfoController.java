@@ -1,5 +1,6 @@
 package org.handmade.miniproject.order.controller;
 
+import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.common.dto.ListResponseDTO;
@@ -22,21 +23,23 @@ public class OrderInfoController {
     private final OrderInfoService orderInfoService;
 
     // 주문 정보 등록
-    @PostMapping("/register")
-    public ResponseEntity<Long> register(@RequestBody OrderInfoDTO orderInfoDTO) {
+    @PostMapping("/register/{pno}")
+    public ResponseEntity<Long> register(@PathVariable long pno/*,Principal principal*/) {
 
-        log.info(orderInfoDTO);
+        /* String username = principal.getNama();*/
 
-        return ResponseEntity.ok(orderInfoService.register(orderInfoDTO));
+        String username = "dlgoska00";
+
+        return ResponseEntity.ok(orderInfoService.register(pno,username));
 
     }
 
     // 장바구니 리스트 조회
     @GetMapping("/cartlist")
-    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> cartList(String username, int page) {
+    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> cartList(String username/*, int page*/) {
         OrderInfoListRequestDTO requestDTO = new OrderInfoListRequestDTO();
         requestDTO.setUsername(username);
-        requestDTO.setPage(page);
+        /*requestDTO.setPage(page);*/
         return ResponseEntity.ok(orderInfoService.getCartList(requestDTO));
     }
 
@@ -60,8 +63,9 @@ public class OrderInfoController {
 
     // 주문 내역 리스트 조회
     @GetMapping("/orderlist")
-    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> orderList(OrderInfoListRequestDTO orderInfoListRequestDTO, Principal principal) {
-        orderInfoListRequestDTO.setUsername(principal.getName());
+    public ResponseEntity<ListResponseDTO<ListOrderInfoDTO>> orderList(String username/*OrderInfoListRequestDTO orderInfoListRequestDTO*//* Principal principal*/) {
+        OrderInfoListRequestDTO orderInfoListRequestDTO = new OrderInfoListRequestDTO();
+        orderInfoListRequestDTO.setUsername("dlgoska00"); /*principal.getName()*/
         return ResponseEntity.ok(orderInfoService.getOrderList(orderInfoListRequestDTO));
     }
 

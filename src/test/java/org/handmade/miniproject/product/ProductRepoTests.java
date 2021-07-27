@@ -24,7 +24,7 @@ public class ProductRepoTests {
     public void testInsert(){
         //카테고리의 1번에 참조하여 product 를 insert 할 예정
         Category category = Category.builder().cno(1L).build();
-        MemberInfo memberInfo = MemberInfo.builder().username("user100@aaa.com").build();
+        MemberInfo memberInfo = MemberInfo.builder().username("dlgoska00").build();
 
         Product product = Product.builder()
                 .pname("상품명")
