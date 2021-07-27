@@ -3,7 +3,6 @@ package org.handmade.miniproject.order;
 import lombok.extern.log4j.Log4j2;
 import org.handmade.miniproject.member.entity.MemberInfo;
 import org.handmade.miniproject.order.dto.ListOrderInfoDTO;
-import org.handmade.miniproject.order.dto.OrderInfoDTO;
 import org.handmade.miniproject.order.entity.OrderInfo;
 import org.handmade.miniproject.order.repository.OrderInfoRepository;
 import org.handmade.miniproject.order.service.OrderInfoService;
@@ -107,10 +106,10 @@ public class OrderInfoRepoTests {
                 .getCartList(pageable, username);
 
         List<ListOrderInfoDTO> cartListDTO =
-            result.getContent()
-                    .stream()
-                    .map(arr-> orderInfoService.arrToDTO(arr))
-                    .collect(Collectors.toList());
+                result.getContent()
+                        .stream()
+                        .map(arr-> orderInfoService.arrToDTO(arr))
+                        .collect(Collectors.toList());
 
         result.getContent().forEach(objects -> log.info(Arrays.toString(objects)));
     }
@@ -147,10 +146,13 @@ public class OrderInfoRepoTests {
         OrderInfo entity = orderInfoRepository.getById(ono);
 
         log.info(entity);
+//
+//        OrderInfoDTO dto = orderInfoService.entityToDTO(entity);
+//
+//        log.info(dto);
 
-        OrderInfoDTO dto = orderInfoService.entityToDTO(entity);
 
-        log.info(dto);
+
     }
 
     // 장바구니에서 삭제
