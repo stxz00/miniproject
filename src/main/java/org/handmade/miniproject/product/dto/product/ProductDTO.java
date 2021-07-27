@@ -15,7 +15,6 @@ public class ProductDTO {
 
     private Long pno;
 
-    //예정 : 판매자 이메일 ManyToOne
     private String username;
 
     //상품이름
@@ -41,7 +40,7 @@ public class ProductDTO {
 
     private Long cno;
 
-
+    private String cname;
 
 
 }

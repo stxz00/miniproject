@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "product")
+@ToString
 @Builder
 @Getter
 public class Qna extends BaseEntity {
@@ -32,6 +32,7 @@ public class Qna extends BaseEntity {
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Product product;
 
     public void changeQnacontent(String qnacontent){

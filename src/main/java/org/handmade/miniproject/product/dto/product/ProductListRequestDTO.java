@@ -8,5 +8,9 @@ public class ProductListRequestDTO extends ListRequestDTO {
 
     private String type;
 
+    private String cname;
+
     private int page;
+
+    String keyword;
 }

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductSearch {
     //상품 검색별 페이지 생성
-    Page<Object[]> getSearchList(String type, String keyword, Pageable pageable);
+    Page<Object[]> getSearchList(String type, String keyword,String cname, Pageable pageable);
 
     //구매자별 찜 리스트 생성 keyword = username(String)
     Page<Object[]> getFavoriteList(String keyword, Pageable pageable);
